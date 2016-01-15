@@ -14,6 +14,8 @@ public class Main {
 	public static boolean isSquare(double d){
 		if(Math.sqrt(d)-(int)Math.sqrt(d)==0)return true;
 		else return false;
+		 //Here's a comment that was added online, via the browser\
+		 //I need to make "Pull" work
 	}
 }
 
