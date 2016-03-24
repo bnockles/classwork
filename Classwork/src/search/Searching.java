@@ -52,27 +52,16 @@ public class Searching {
 		
 	}
 
+//TODO fill in the method body:
 	private int search(int[] searchThis, int target) {
 
-		for(int i= 0 ; i< searchThis.length; i++){
-			if(searchThis[i]== target) return i;
 			delay(HANDICAP);
-			if(i%100 == 0)System.out.println("Searching...");
-		}
+			
+	
 		return -1;
 	}
 	
-	private int search(int[] searchThis, int start, int finish, int target) {
 
-		delay(HANDICAP);
-		
-		if(start > finish) return -1;
-		int mid = (start+finish)/2;
-		
-		if (searchThis[mid]==target) return mid;
-		else if (searchThis[mid] > target) return search(searchThis, start, mid-1, target);
-		else return search(searchThis, mid+1,finish, target);
-	}
 
 	private void delay(int handicap2) {
 		try {
