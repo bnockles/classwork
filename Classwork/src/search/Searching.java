@@ -43,7 +43,7 @@ public class Searching {
 						+ "Try to find the number "+target+"."
 				+ "\n    Press 'enter' to begin.");
 		in.nextLine();
-		int index = search(numbers, 0, numbers.length, target);
+		int index = search(numbers, target);
 		if(index!=-1){
 			System.out.println("The number "+target+" was found at index "+index+". Did the computer win?");
 		}else{
