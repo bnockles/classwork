@@ -2,8 +2,6 @@ package search;
 import java.util.Scanner;
 import java.util.Timer;
 
-import sun.security.util.Length;
-
 public class Searching {
 
 	Scanner in;
