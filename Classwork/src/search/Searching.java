@@ -2,7 +2,6 @@ package search;
 import java.util.Scanner;
 import java.util.Timer;
 
-import sun.security.util.Length;
 
 public class Searching {
 
@@ -43,7 +42,7 @@ public class Searching {
 						+ "Try to find the number "+target+"."
 				+ "\n    Press 'enter' to begin.");
 		in.nextLine();
-		int index = search(numbers, 0, numbers.length, target);
+		int index = search(numbers, 0, numbers.length-1, target);
 		if(index!=-1){
 			System.out.println("The number "+target+" was found at index "+index+". Did the computer win?");
 		}else{
@@ -67,11 +66,13 @@ public class Searching {
 		delay(HANDICAP);
 		
 		if(start > finish) return -1;
-		int mid = (start+finish)/2;
+		else{
+			int mid = (start+finish)/2;
+			if (searchThis[mid]==target) return mid;
+			else if (searchThis[mid] > target) return search(searchThis, start, mid-1, target);
+			else return search(searchThis, mid+1,finish, target);
 		
-		if (searchThis[mid]==target) return mid;
-		else if (searchThis[mid] > target) return search(searchThis, start, mid-1, target);
-		else return search(searchThis, mid+1,finish, target);
+		}
 	}
 
 	private void delay(int handicap2) {
