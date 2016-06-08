@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MyServer extends JFrame{
+public class MyChatServer extends JFrame{
 
 	//Java Tutorial 38
 	private JTextField userText;
@@ -16,7 +16,7 @@ public class MyServer extends JFrame{
 	private ServerSocket server;
 	private Socket connection;//In JAva, connections are called "sockets"
 	
-	public MyServer(){
+	public MyChatServer(){
 		super("Mr. Nockles' Instant Messenger");
 		userText = new JTextField();
 		userText.setEditable(false);//sets to false until a connection is made

@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,40 +9,55 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import java.net.*;
-import java.io.*;
 
+import Networking.Client;
 import feature.BasicFeature;
-import feature.CustomGraphics;
-import feature.MouseFollower;
 
-public class MyServer extends JFrame{
+public class MyClient extends JFrame{
 
 	private int windowWidth;
 	private int windowHeight;
 	private ArrayList<Feature> features;
+	private Feature playerTwo;
+	private NetworkMouseFollower follower;
+
 	private String message;
 	private String lastMessage;
+
+	private boolean ableToSend;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
-	private ServerSocket server;
-	private Socket connection;
-	private boolean ableToSend;
-	private NetworkMouseFollower follower;
-	private Feature playerTwo;
+	private String serverIP;//IP Address of the Server
+	private Socket connection;//In JAva, connections are called "sockets"
 
-	public static final int PORT = 8081;
-
-	public MyServer() {
-		super("Draw with friends!");
+	public static void main(String[] args){
+		MyClient charlie;
+		charlie = new MyClient("127.0.0.1");//this is the IP address fpr the local host (the computer that I am at)
+		charlie.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		charlie.startRunning();
+	}
+	//this computer is given the IP address of the server it is going to connect to
+	public MyClient(String host){
+		super("Client");
+		message = "...";
+		showMessage("Starting up...");
 		applySettings();
-		message = "You are running the server!";
-		lastMessage ="";
-		showMessage(message);
+		serverIP = host;
 		setVisible(true);
 		features = new ArrayList<Feature>();
 		addMouseMotionListenerObjects();
@@ -51,9 +67,9 @@ public class MyServer extends JFrame{
 		Timer t = new Timer(10, new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				MyServer.this.repaint();
-				
-				if(ableToSend)sendData(new InfoPacket(follower.getX(), follower.getY()));
+				MyClient.this.repaint();
+				int[] followerData = {follower.getX(), follower.getY()};
+				if(ableToSend)sendData(followerData);
 			}
 		});
 		t.start();
@@ -73,7 +89,7 @@ public class MyServer extends JFrame{
 	}
 
 	private void addMouseMotionListenerObjects() {
-		follower = new NetworkMouseFollower(300, 300,Color.red);
+		follower = new NetworkMouseFollower(300, 300, Color.blue);
 		features.add(follower);//to make visible
 		addMouseMotionListener(follower);//to make active
 	}
@@ -104,44 +120,36 @@ public class MyServer extends JFrame{
 		message = s;
 	}
 
+
+
+	//connect to server
 	public void startRunning(){
 		try{
-			server = new ServerSocket(PORT, 100);
-			//6789 is the port for this Java application
-			//100 is the backlog (number of people to be in line
-			//at this port)
-			while(true){
-				try{
-					waitForAConnection();
-					setupStreams();
-					whileConnected();
-				}catch(EOFException eof){
-					showMessage("\nServer ended the connection");
-				}finally{
-					close();
-				}
-			}
-
+			connectToServer();//client is responsible for connecting to the server
+			setUpStreams();
+			whileConnected();
+		}catch(EOFException e){
+			showMessage("\nClient terminated the connection");
 		}catch(IOException e){
 			e.printStackTrace();
+		}finally{
+			close();
 		}
 	}
 
-	private void waitForAConnection() throws IOException{
-		showMessage("Waiting for someone to connect...");
-		connection = server.accept();
-		showMessage("Now connected to "+
-		connection.getInetAddress().getHostName());
+	private void connectToServer() throws UnknownHostException, IOException{
+		showMessage("Attempting connection....\n");
+		connection = new Socket(InetAddress.getByName(serverIP), MyServer.PORT);//IP address and port
+		showMessage("Connected to "+connection.getInetAddress().getHostName()+"\n");
 	}
-	
-	private void setupStreams() throws IOException{
+
+	private void setUpStreams() throws IOException{
 		output = new ObjectOutputStream(connection.getOutputStream());
-		output.flush();//only output can flush, clears out the output stream (rids of all bytes)
+		output.flush();
 		input = new ObjectInputStream(connection.getInputStream());
-		showMessage("Streams are now set up!");
-		
+		showMessage("\nYour streams are set up");
 	}
-	
+
 	private void whileConnected() throws IOException{
 		showMessage("You are now connected!");
 		ableToSend(true);
@@ -151,62 +159,42 @@ public class MyServer extends JFrame{
 				playerTwo = new BasicFeature(data.getInfo()[0],data.getInfo()[1]);
 				
 			}catch(ClassNotFoundException cnfe){
+				cnfe.printStackTrace();
 				showMessage("Client sent an unknown object");
+			}catch(ClassCastException cce){
+				cce.printStackTrace();
+				showMessage("Client sent an object that cannot be cast");
 			}
-		}while(!message.equals("CIENT - END"));
+		}while(true);
 	}
-	
-	
-	private void ableToSend(final boolean b){
-		ableToSend = b;
-	}
-	
+
 	private void close(){
-		showMessage("Closing connections...");
+		showMessage("\nClosing connections...");
 		ableToSend(false);
 		try{
 			output.close();
 			input.close();
 			connection.close();
-			playerTwo = null;
 		}catch(IOException io){
 			io.printStackTrace();
 		}
 	}
-	
-	private void sendData(InfoPacket data){
+
+	private void sendData(int[] followerData){
 		try{
+			InfoPacket data = new InfoPacket(follower.getX(), follower.getY());
 			output.writeObject(data);//send the message on the strem
 			output.flush();
 		}catch(IOException e){
 			showMessage("Failed to update client.");
 		}
 	}
-	
-	
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		MyServer server = new MyServer();
-		server.startRunning();
+
+	//this is necessary because without a connection, problems would result from trying to send a message
+	private void ableToSend(final boolean b){
+
+		ableToSend = b;
+
+
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

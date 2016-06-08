@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import main.MyClient;
+
 public class Client extends JFrame{
 
 	//Java Tutorial 38
@@ -18,6 +20,13 @@ public class Client extends JFrame{
 	private String serverIP;//IP Address of the Server
 	private Socket connection;//In JAva, connections are called "sockets"
 	
+	public static void main(String[] args){
+		MyClient charlie;
+		charlie = new MyClient("127.0.0.1");//this is the IP address fpr the local host (the computer that I am at)
+		charlie.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		charlie.startRunning();
+	}
+
 	
 	//this computer is given the IP address of the server it is going to connect to
 	public Client(String host){

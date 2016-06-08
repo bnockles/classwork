@@ -8,6 +8,10 @@ import main.Feature;
 
 public class BasicFeature implements Feature {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2173969148086215101L;
 	public static final int DEFAULT_WIDTH=50;
 	public static final int DEFAULT_HEIGHT=50;
 	public static final Color DEFAULT_BACKGROUND=Color.white;
@@ -45,7 +49,7 @@ public class BasicFeature implements Feature {
 
 	
 	
-	private void draw() {
+	protected void draw() {
 		if(customizer == null){
 			Graphics2D g2 = image.createGraphics();
 			g2.setColor(foregroundColor);
@@ -61,27 +65,26 @@ public class BasicFeature implements Feature {
 
 
 
-	@Override
 	public BufferedImage getImage() {
 		return image;
 	}
 
-	@Override
+
 	public int getX() {
 		return x;
 	}
 
-	@Override
+
 	public int getY() {
 		return y;
 	}
 
-	@Override
+
 	public void setX(int x) {
 		this.x = x;
 	}
 
-	@Override
+
 	public void setY(int y) {
 		this.y = y;
 	}

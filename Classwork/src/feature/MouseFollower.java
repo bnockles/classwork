@@ -6,6 +6,12 @@ import java.awt.event.MouseMotionListener;
 public class MouseFollower extends BasicFeature 
 implements MouseMotionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -483454187127333552L;
+
+
 	public MouseFollower(int x, int y) {
 		super(x, y);
 	}
@@ -15,7 +21,6 @@ implements MouseMotionListener{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
 	public void mouseDragged(MouseEvent e) {
 		setX(e.getX());
 		setY(e.getY());
@@ -36,7 +41,6 @@ implements MouseMotionListener{
 	}
 	
 	
-	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
