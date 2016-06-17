@@ -2,10 +2,14 @@ package simulator;
 
 public class Location {
 
+	private Environment city;
 	private int x;
 	private int y;
 	
-	public Location(int x, int y){
+	public Location(Environment city, int x, int y){
+		this.city = city;
+		this.x = x;
+		this.y = y;
 		
 	}
 	
@@ -19,6 +23,15 @@ public class Location {
 	
 	public int getY(){
 		return y;
+	}
+	
+	public Environment getCity(){
+		return city;
+	}
+
+	//return price per unit of travel
+	public double getTravelRate() {
+		return 1.0;
 	}
 	
 }
