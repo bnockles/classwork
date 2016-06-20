@@ -12,16 +12,17 @@ public abstract class Population {
 	
 	protected double luxuryNeed;
 	protected double essentialNeed;
+	protected double luxuryCapacity;
+	protected double essentialCapacity;
 	protected int preferedShoppingDay1;
-	protected int preferedShoppingDay2;
 
 	
 	protected int luxuryConsumptionPerDay;
 	protected int essentialConsumptionPerDay;
 	
 	protected Location location;
-	protected int luxuryInventory;
-	protected int essentialInventory;
+	protected List<LuxuryFood> luxuryInventory;
+	protected List<EssentialFood> essentialInventory;
 	protected List<GroceryStore> storesByDistance;
 	
 	
@@ -36,16 +37,24 @@ public abstract class Population {
 	}
 
 	protected void reduceFood() {
-		luxuryInventory -= luxuryConsumptionPerDay;
-		essentialInventory -= essentialConsumptionPerDay;
+		for(int i = 0; i < luxuryConsumptionPerDay; i++){
+			luxuryInventory.remove(0);
+		}
+		for(int i = 0; i < essentialConsumptionPerDay; i++){
+			essentialInventory.remove(0);
+		}
 	}
 
 	protected void goShoppingFor(List<ShoppingItenerary> lists) {
 		ShoppingItenerary selected = selectBestItenerary(lists);
 		GroceryStore selectedBusiness = selected.getStore();
 		selectedBusiness.sell(selected.getList());
-		luxuryInventory += selected.getList().getLuxury();
-		essentialInventory += selected.getList().getEssential();
+		for(int i = 0; i < selected.getList().getLuxury(); i++){
+			luxuryInventory.add(new LuxuryFood());
+		}
+		for(int i = 0; i < selected.getList().getEssential(); i++){
+			essentialInventory.add(new EssentialFood());
+		}
 	}
 
 	private ShoppingItenerary selectBestItenerary(List<ShoppingItenerary> lists) {
@@ -77,13 +86,17 @@ public abstract class Population {
 		
 		
 		ArrayList<ShoppingItenerary> possibleOptions = new ArrayList<ShoppingItenerary>();
-		addOption(1, possibleOptions, priority);
+		int daysUntilNextShoppingDay = (preferedShoppingDay1 - location.getCity().getDay())%7;
+		for(int daysWorth = 1; daysWorth < daysUntilNextShoppingDay; daysWorth ++){		
+			addOption(daysWorth, possibleOptions, priority);
+		}
 		return possibleOptions;
 	}
 
 	private void addOption(int numberOfDays, ArrayList<ShoppingItenerary> possibleOptions, double priority ) {
 		double travelCoef = 1.0;
-		if(location.getCity().getDay()==preferedShoppingDay1 || location.getCity().getDay()==preferedShoppingDay1)travelCoef=.5;
+		if(location.getCity().getDay()==preferedShoppingDay1)travelCoef=.1;
+		int amountOfLuxuryNeeded = 
 		GroceryList list = new GroceryList(luxuryConsumptionPerDay*numberOfDays,essentialConsumptionPerDay*numberOfDays);
 		for(GroceryStore g: storesByDistance){
 			possibleOptions.add(new ShoppingItenerary(location, travelCoef, g, list, priority));			
