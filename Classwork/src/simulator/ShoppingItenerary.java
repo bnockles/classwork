@@ -5,9 +5,8 @@ public final class ShoppingItenerary implements Comparable<ShoppingItenerary> {
 	private  GroceryStore selectedStore;
 	private GroceryList shoppingList;
 	private double cost;
-	private double priority;
 	
-	public ShoppingItenerary(Location origin, double travelCoef, GroceryStore selectedStore, GroceryList shoppingList, double priority){
+	public ShoppingItenerary(Location origin, double travelCoef, GroceryStore selectedStore, GroceryList shoppingList){
 		this.selectedStore = selectedStore;
 		this.shoppingList = shoppingList;
 		cost = calculateCost(origin, travelCoef);

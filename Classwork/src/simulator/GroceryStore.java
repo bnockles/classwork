@@ -2,17 +2,17 @@ package simulator;
 
 import java.util.List;
 
-public abstract class GroceryStore{
+public abstract class GroceryStore implements Place{
 
 	public static final double STORE_STARTING_AMOUNT=100000 + Environment.getRelocateCost(0,0); 
 	
 	protected final Inventory inventory = new Inventory(STORE_STARTING_AMOUNT);
 	protected final Inventory discardedInventory = new Inventory(0);
 	//location is final. Location can be set only by calling the "relocate" method
-	protected final Location location = new Location(Manhattan.getInstance(), 0,0);
+	protected final Location location = Manhattan.getInstance().claimARandomLot("Store");
+	protected List<Distributor> distributors;
 	
-	
-	final Location getLocation(){return location;}
+	public final Location getLocation(){return location;}
 	
 	
 	/**
@@ -30,9 +30,10 @@ public abstract class GroceryStore{
 	 */
 	abstract double getFreshness();
 	
-	public final void sell(GroceryList list) {
-		inventory.sell(list, estimateCost(list));
+	public final List<Food> sell(GroceryList list) {
+		return inventory.sell(list, estimateCost(list));
 	}
+	
 
 
 	/**
@@ -41,6 +42,7 @@ public abstract class GroceryStore{
 	 */
 	public final void lapse(){
 		inventory.lapse();//food ages each day after it is purchased from distributors
+		inventory.sortByFreshness();
 		inventory.discardNonfreshFood(getFreshness(), discardedInventory);//food that is below this store's freshness standard gets moved to the discardedInventory
 		orderSupplies();
 	}

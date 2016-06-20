@@ -1,10 +1,11 @@
 package simulator;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-public final  class Inventory {
+public final  class Inventory implements Comparator<Food>{
 
 	private Account account;
 	private List<LuxuryFood> luxuryInventory;
@@ -22,23 +23,37 @@ public final  class Inventory {
 		return luxuryInventory.size()> list.getLuxury() && essentialInventory.size() > list.getEssential();
 	}
 
-	public void sell(GroceryList list, double cost) {
+	public boolean canAfford(double amount){
+		return amount <= account.getAmmount();
+	}
+	
+	public List<Food> sell(GroceryList list, double cost) {
+		ArrayList<Food> product = new ArrayList<Food>();
 		for(int i =0; i < list.getLuxury(); i ++){
-			luxuryInventory.remove(0);
+			product.add(luxuryInventory.remove(0));
 		}
 		for(int i =0; i < list.getEssential(); i ++){
-			essentialInventory.remove(0);
+			product.add(essentialInventory.remove(0));
 		}
 		account.increase(cost);
+		return product;
 		
 	}
 	
 	
-	public void buy(GroceryList list, double cost) {
-		// TODO Auto-generated method stub
-		
+	public void buy(List<Food> purchasedProducts, double cost) {
+		account.decrease(cost);
+		for(Food f: purchasedProducts){
+			if(f instanceof EssentialFood)essentialInventory.add((EssentialFood) f);
+			else if(f instanceof LuxuryFood)luxuryInventory.add((LuxuryFood) f);
+		}
+
 	}
 
+	
+	/**
+	 * deteriorates all food
+	 */
 	public void lapse(){
 		for(Food f: luxuryInventory){
 			f.deteriorate();
@@ -54,7 +69,7 @@ public final  class Inventory {
 			Food lf = iter.next();
 			if(lf.getFreshness() < freshness){
 				luxuryInventory.remove(lf);
-				discardedInventory.add(lf);
+				if(discardedInventory!= null) discardedInventory.add(lf);
 			}
 			
 		}
@@ -63,7 +78,7 @@ public final  class Inventory {
 			Food ef = iter2.next();
 			if(ef.getFreshness() < freshness){
 				essentialInventory.remove(ef);
-				discardedInventory.add(ef);
+				if(discardedInventory!= null) discardedInventory.add(ef);
 			}
 			
 		}
@@ -84,6 +99,54 @@ public final  class Inventory {
 			essentialInventory.add((EssentialFood)f);
 		}
 	}
+
+
+	public void sortByFreshness() {
+		luxuryInventory.sort(this);
+		essentialInventory.sort(this);
+	}
+
+
+	public int compare(Food f1, Food f2) {
+		if(f1.getFreshness()-f2.getFreshness()>0)return 1;
+		else if(f1.getFreshness()-f2.getFreshness()<0)return -1;
+		else return 0;
+	}
+
+
+	public void consumeLux() {
+		luxuryInventory.remove(0);
+	}
+	
+	public void consumeEss() {
+		essentialInventory.remove(0);
+	}
+
+
+	public void sortByOldest() {
+		class OldSort implements Comparator<Food>{
+			public int compare(Food f1, Food f2) {
+				if(f1.getFreshness()-f2.getFreshness()>0)return -1;
+				else if(f1.getFreshness()-f2.getFreshness()<0)return 1;
+				else return 0;
+			}
+			
+		}
+		
+		luxuryInventory.sort(new OldSort());
+		System.out.println("Checking sort by oldest (least fresh food at top)\nThe oldest food has freshness "+luxuryInventory.get(0).getFreshness()+" while the newest has "+luxuryInventory.get(luxuryInventory.size()-1).getFreshness());
+		essentialInventory.sort(new OldSort());
+	}
+
+
+	public int getLuxury() {
+		return luxuryInventory.size();
+	}
+
+	public int getEssential(){
+		return essentialInventory.size();
+	}
+
 
 
 

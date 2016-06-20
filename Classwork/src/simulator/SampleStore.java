@@ -3,6 +3,8 @@
  */
 package simulator;
 
+import java.util.List;
+
 /**
  * @author Teacher
  *
@@ -13,19 +15,21 @@ public final class SampleStore extends GroceryStore{
 	 * 
 	 */
 	public SampleStore() {
-		location.
 	}
 
+	public void initDistributors(List<Distributor> listByProximity){
+		distributors = listByProximity;
+	}
+	
+	
 	@Override
 	double estimateCost(GroceryList list) {
-		// TODO Auto-generated method stub
-		return 0;
+		return list.getLuxury()*Food.LUXURY+list.getEssential()*Food.ESSENTIAL;
 	}
 
 	@Override
 	double getFreshness() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override

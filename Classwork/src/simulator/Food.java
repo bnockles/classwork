@@ -1,6 +1,6 @@
 package simulator;
 
-public abstract class Food {
+public abstract class Food{
 
 	public static final double LUXURY = 5.00;
 	public static final double ESSENTIAL = 1.30;
