@@ -1,6 +1,6 @@
 package simulator;
 
-public class Location {
+public final class Location {
 
 	private Environment city;
 	private int x;
@@ -11,6 +11,10 @@ public class Location {
 		this.x = x;
 		this.y = y;
 		
+	}
+	
+	public void move(Inventory i, int x, int y){
+		i.city.getRelocateCost(x, y);
 	}
 	
 	public double getDistanceTo(Location other){
