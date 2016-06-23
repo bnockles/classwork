@@ -9,7 +9,7 @@ public abstract class GroceryStore implements Place{
 	protected final Inventory inventory = new Inventory(STORE_STARTING_AMOUNT);
 	protected final Inventory discardedInventory = new Inventory(0);
 	//location is final. Location can be set only by calling the "relocate" method
-	protected final Location location = Manhattan.getInstance().claimARandomLot("Store");
+	protected Location location;
 	protected List<Distributor> distributors;
 	
 	public final Location getLocation(){return location;}
@@ -53,6 +53,8 @@ public abstract class GroceryStore implements Place{
 	 */
 	abstract void orderSupplies();
 
-
+	public String toString(){
+		return "the store at "+location;
+	}
 	
 }

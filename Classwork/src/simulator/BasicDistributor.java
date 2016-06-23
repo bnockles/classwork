@@ -8,8 +8,8 @@ public class BasicDistributor implements Distributor {
 	final Location location;
 
 
-	public BasicDistributor() {
-		this.location=Manhattan.getInstance().claimARandomLot("Dis.");
+	public BasicDistributor(Location loc) {
+		this.location=loc;
 	}
 
 	public double getQuote(final int numberOfLuxury, final int numberOfEssential, final double minFreshness) {

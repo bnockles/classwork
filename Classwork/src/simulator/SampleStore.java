@@ -14,7 +14,8 @@ public final class SampleStore extends GroceryStore{
 	/**
 	 * 
 	 */
-	public SampleStore() {
+	public SampleStore(Location l) {
+		this.location = l;
 	}
 
 	public void initDistributors(List<Distributor> listByProximity){

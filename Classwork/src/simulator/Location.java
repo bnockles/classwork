@@ -17,6 +17,7 @@ public final class Location {
 	private boolean taken;
 	private String symbolString;
 	
+	
 	public Location(Environment city, int x, int y, String string){
 		this.city = city;
 		this.x = x;
@@ -72,10 +73,15 @@ public final class Location {
 		return taken;
 	}
 
+	public double getSE(){
+		return seStatus;
+	}
+	
 	public void take(String title) {
 		symbolString = title;
 		draw();
 		taken = true;
 	}
-	
+
+	public String 
 }

@@ -3,8 +3,11 @@ package simulator;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
 public class UI extends JFrame {
 
@@ -23,6 +26,16 @@ public class UI extends JFrame {
 		city = Manhattan.getInstance();
 		applySettings();
 		setVisible(true);
+		start();
+	}
+
+	private void start() {
+		Timer timer = new Timer(1000, new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				city.lapse();
+			}
+		});
 	}
 
 	public void paint(Graphics g){

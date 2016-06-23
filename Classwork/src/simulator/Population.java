@@ -7,17 +7,16 @@ import java.util.List;
 
 public abstract class Population {
 
-	protected static final int NEED_LUXURY = 0;
-	protected static final int NEED_ESSENTIAL = 1;
-	protected static final int NEED_ALL = 2;
 
 	protected double luxuryNeed;
 	protected double essentialNeed;
 	protected int luxuryCapacity;
 	protected int essentialCapacity;
 	protected int preferedShoppingDay1;
+	protected double freshnessStandard;
 
-
+	protected String name;
+	
 	protected int luxuryConsumptionPerDay;
 	protected int essentialConsumptionPerDay;
 
@@ -35,7 +34,10 @@ public abstract class Population {
 		reduceFood();
 		throwAwayExpiredFood();
 		List<ShoppingItenerary> possibleTrips = assessNeeds();
-		if (!possibleTrips.isEmpty())goShoppingFor(possibleTrips);
+		if (!possibleTrips.isEmpty()){
+			goShoppingFor(possibleTrips);
+			
+		}
 	}
 
 	private void throwAwayExpiredFood() {
@@ -58,7 +60,7 @@ public abstract class Population {
 		GroceryStore selectedBusiness = selected.getStore();
 		List<Food> products = selectedBusiness.sell(selected.getList());
 		inventory.buy(products, selectedBusiness.estimateCost(selected.getList()));			
-
+		System.out.print(name +" went grocery shopping at "+selectedBusiness);
 
 	}
 
