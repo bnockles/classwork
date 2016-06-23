@@ -2,22 +2,26 @@ package simulator;
 
 public final class ShoppingItenerary implements Comparable<ShoppingItenerary> {
 
-	private  GroceryStore selectedStore;
+	private  Distributor selectedStore;
 	private GroceryList shoppingList;
 	private double cost;
+	private double desiredFreshness;
 	
-	public ShoppingItenerary(Location origin, double travelCoef, GroceryStore selectedStore, GroceryList shoppingList){
-		this.selectedStore = selectedStore;
+	public ShoppingItenerary(Location origin, double travelCoef, Distributor d, GroceryList shoppingList, double desiredFreshness){
+		this.selectedStore = d;
 		this.shoppingList = shoppingList;
 		cost = calculateCost(origin, travelCoef);
+		this.desiredFreshness=desiredFreshness;
 	}
 
 	private double calculateCost(Location origin, double travelCoef) {
 		double travelRate = origin.getTravelRate();
-		return travelRate*2*travelCoef*origin.getDistanceTo(selectedStore.getLocation())+selectedStore.estimateCost(shoppingList);
+//		System.out.println("The cost of buying "+shoppingList+" at "+selectedStore+", leaving from "+origin+", is the travel cost:");
+//		System.out.println("distance: "+origin.getDistanceTo(selectedStore.getLocation())+" multiplied by travel cost = "+travelRate*2*travelCoef*origin.getDistanceTo(selectedStore.getLocation()));
+		return travelRate*2*travelCoef*origin.getDistanceTo(selectedStore.getLocation())+selectedStore.getQuote(origin, shoppingList.getLuxury(), shoppingList.getEssential(), desiredFreshness);
 	}
 
-	public GroceryStore getStore() {
+	public Distributor getStore() {
 		// TODO Auto-generated method stub
 		return selectedStore;
 	}
@@ -30,7 +34,7 @@ public final class ShoppingItenerary implements Comparable<ShoppingItenerary> {
 		return (int) (this.cost - arg0.getCost());
 	}
 
-	private double getCost() {
+	public double getCost() {
 		return cost;
 	}
 	

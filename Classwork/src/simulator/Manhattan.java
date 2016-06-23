@@ -20,7 +20,7 @@ public class Manhattan extends Environment {
 	private static Manhattan nyc = new Manhattan();
 	private Image cityMap;
 	private Location[][] locations;
-	private Population[][] populations;
+	
 
 	
 	public Manhattan() {

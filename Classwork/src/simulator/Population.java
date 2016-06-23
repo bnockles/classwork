@@ -31,15 +31,19 @@ public abstract class Population {
 	 * called after ever iteration 
 	 */
 	public void lapse() {
+		print(this+" has "+inventory+".");
 		reduceFood();
 		throwAwayExpiredFood();
 		List<ShoppingItenerary> possibleTrips = assessNeeds();
 		if (!possibleTrips.isEmpty()){
 			goShoppingFor(possibleTrips);
-			
 		}
 	}
 
+	private void print(String s){
+//		if(name.contains("15, 9"))System.out.println(s);
+	}
+	
 	private void throwAwayExpiredFood() {
 		inventory.lapse();
 		inventory.discardNonfreshFood(.05, null);
@@ -57,10 +61,10 @@ public abstract class Population {
 
 	protected void goShoppingFor(List<ShoppingItenerary> lists) {
 		ShoppingItenerary selected = selectBestItenerary(lists);
-		GroceryStore selectedBusiness = selected.getStore();
-		List<Food> products = selectedBusiness.sell(selected.getList());
-		inventory.buy(products, selectedBusiness.estimateCost(selected.getList()));			
-		System.out.print(name +" went grocery shopping at "+selectedBusiness);
+		GroceryStore selectedBusiness = (GroceryStore) selected.getStore();
+		List<Food> products = selectedBusiness.getOrder(this.location, inventory, selected.getList(), freshnessStandard);
+		inventory.obtain(products);			
+		print(name +" went grocery shopping at "+selectedBusiness);
 
 	}
 
@@ -71,8 +75,8 @@ public abstract class Population {
 				return o1.compareTo(o2);
 			}
 		});
-		System.out.println("Testing sort method of iteneraries in Population. Best choice is "+lists.get(0).getStore().estimateCost(lists.get(0).getList())+
-				"while least is "+lists.get(lists.size()-1).getStore().estimateCost(lists.get(lists.size()-1).getList()));
+		double cost1 = lists.get(0).getCost();
+		double cost2 = lists.get(lists.size()-1).getCost();
 		
 		return lists.get(0);
 	}
@@ -91,35 +95,38 @@ public abstract class Population {
 	protected List<ShoppingItenerary> assessNeeds() {
 
 		ArrayList<ShoppingItenerary> possibleOptions = new ArrayList<ShoppingItenerary>();
-		if(inventory.getLuxury()-luxuryConsumptionPerDay<0 || inventory.getEssential()-essentialConsumptionPerDay<0){
+		if(inventory.getLuxury()-luxuryConsumptionPerDay<=0 || inventory.getEssential()-essentialConsumptionPerDay<=0){
 
 
 			double travelCoef = 1.0;
 			if(location.getCity().getDay()==preferedShoppingDay1)travelCoef=.1;
 			int amountOfLuxuryNeeded = getNeed(Distributor.TYPE_LUXURY);
-			int amountOfEssentialNeeded = getNeed(Distributor.TYPE_LUXURY);
+			int amountOfEssentialNeeded = getNeed(Distributor.TYPE_ESSENTIAL);
 			GroceryList list = new GroceryList(amountOfLuxuryNeeded,amountOfEssentialNeeded);
 			for(GroceryStore g: storesByDistance){
-				possibleOptions.add(new ShoppingItenerary(location, travelCoef, g, list));			
+				if(g.hasInStock(list, freshnessStandard))
+				possibleOptions.add(new ShoppingItenerary(location, travelCoef, g, list, freshnessStandard));			
 			}
 		}
 		return possibleOptions;
 	}
 
 
-	private int getDaysUntilSHopping(){
+	private int getDaysUntilShopping(){
 		return   (preferedShoppingDay1 - location.getCity().getDay())%7;
 	}
 
 	private int getNeed(int type) {
-		int days = getDaysUntilSHopping();
+		int days = getDaysUntilShopping();
 		int amountUntilShoppingDay =(type==Distributor.TYPE_LUXURY)?days*luxuryConsumptionPerDay:days*essentialConsumptionPerDay;
 		int capacity = (type== Distributor.TYPE_LUXURY)?luxuryCapacity:essentialCapacity;
 		if(amountUntilShoppingDay < capacity)return amountUntilShoppingDay;
 		else return capacity;
 	}
 
-
+	public String toString(){
+		return name;
+	}
 	//returns 
 
 

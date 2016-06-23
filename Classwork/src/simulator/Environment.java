@@ -11,7 +11,7 @@ public abstract class Environment {
 
 	List<GroceryStore> stores;
 	List<Distributor> distributors;
-	List<Population> population;
+	protected Population[][] populations;
 	int day;
 	protected BufferedImage image;
 
@@ -31,8 +31,10 @@ public abstract class Environment {
 
 	public void lapse(){
 		day = ((day+1)%7);
-		for(Population p: population){
-			p.lapse();
+		for(Population[] pList: populations){
+			for(Population p:pList){
+				p.lapse();
+			}
 		}
 		for(GroceryStore g: stores){
 			g.lapse();

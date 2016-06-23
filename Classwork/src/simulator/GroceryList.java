@@ -18,5 +18,9 @@ public final class GroceryList {
 	public int getEssential(){
 		return essentialNeed;
 	}
+	
+	public String toString(){
+		return luxuryNeed+" luxury, "+essentialNeed+" essential";
+	}
 
 }

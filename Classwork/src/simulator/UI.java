@@ -36,6 +36,7 @@ public class UI extends JFrame {
 				city.lapse();
 			}
 		});
+		timer.start();
 	}
 
 	public void paint(Graphics g){

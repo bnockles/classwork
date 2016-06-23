@@ -83,5 +83,7 @@ public final class Location {
 		taken = true;
 	}
 
-	public String 
+	public String toString(){
+		return "("+this.x + ", "+this.y+")";
+	}
 }
