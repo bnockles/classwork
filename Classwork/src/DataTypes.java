@@ -2,28 +2,29 @@ import java.math.BigDecimal;
 
 public class DataTypes {
 
-	public static final int digits = 8;
+	public static final int digits = 64;
 
 	public static void main(String[] args) {
 		System.out.println(".1+.2 = "+(.1+.2));
 		String s1 = representAsBinary(new BigDecimal(.1));
 		String s2 = representAsBinary(new BigDecimal(.2));
-		System.out.println(add(s1, s2));
+		System.out.println("Sum is \n"+add(s1, s2));
 		representAsBinary(new BigDecimal(.30000000000000004));
 	}
 
 	private static String add(String s1, String s2) {
 		String answer = "";
-		int index = digits;
+		int index = digits+1;
 		String carry = "0";
-		while(index >0){
+		while(index >1){
 			String s = "0";
-			if(s1.charAt(index) == '1' && s1.charAt(index) == '1'){
+			if(s1.charAt(index) == '1' && s2.charAt(index) == '1'){
 				if(carry.equals("1")){
 					s = "1";
 				}
 				carry = "1";
-			}else if((s1.charAt(index) == '0' && s1.charAt(index) == '1') || s1.charAt(index) == '1' && s1.charAt(index) == '0'){
+			}else if((s1.charAt(index) == '0' && s2.charAt(index) == '1') || s1.charAt(index) == '1' && s2.charAt(index) == '0'){
+//				System.out.print("TRIGGER");
 				if(carry.equals("1")){
 					s = "0";
 					carry = "1";
@@ -32,7 +33,7 @@ public class DataTypes {
 					carry = "0";
 				}
 
-			}else{
+			}else if (s1.charAt(index) == '0' && s2.charAt(index) == '0'){
 				if(carry.equals("1")){
 					s = "1";
 					carry = "0";
@@ -41,6 +42,7 @@ public class DataTypes {
 					carry = "0";
 				}
 			}
+//			System.out.println("Comparing "+s1.charAt(index)+" and "+s2.charAt(index)+" sums to "+s+", carry the "+carry);
 			answer = s+answer;
 			index --;
 		}
