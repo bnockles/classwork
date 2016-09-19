@@ -9,6 +9,7 @@ public class DataTypes {
 		String s1 = representAsBinary(new BigDecimal(.1));
 		String s2 = representAsBinary(new BigDecimal(.2));
 		System.out.println("Sum is \n"+add(s1, s2));
+		System.out.print("The calculated result is ");
 		representAsBinary(new BigDecimal(.30000000000000004));
 	}
 
