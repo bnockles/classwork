@@ -13,7 +13,27 @@ public class TeacherPrep {
 	public static void main(String[] args) {
 		createFields();
 		print("Here is a practice sentence. It is easy to read. You can add more words if you want. It will always cut it to 25 characters a line.");
+		int i = getIntegerInput();
+		print("value returned is "+i);
 		runMagpie();
+	}
+
+	private static int getIntegerInput() {
+		print("Please enter an integer.");
+		String integerString = getInput();
+		boolean isInteger = false;
+		int value = 0;
+		while(!isInteger){
+			try{
+				value = Integer.parseInt(integerString);
+				//will not continue if an error above is thrown
+				isInteger = true;//exits loop if entry is valid
+			}catch(NumberFormatException e){
+				print("You must enter an integer. You better try again.");
+				integerString = getInput();
+			}
+		}
+		return value;
 	}
 
 	private static void runMagpie() {
@@ -53,7 +73,7 @@ public class TeacherPrep {
 
 	public static void print(String s){
 		String printString = "";
-		int cutoff = 25;
+		int cutoff = 45;
 		//this while loop last as long as there are letters left
 		while(s.length() > 0){
 
