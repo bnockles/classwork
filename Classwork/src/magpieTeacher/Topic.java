@@ -4,5 +4,5 @@ import java.util.Scanner;
 
 public interface Topic {
 
-	public void talk(Scanner input);
+	public void talk();
 }

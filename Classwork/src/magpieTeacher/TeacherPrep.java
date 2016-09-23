@@ -8,6 +8,7 @@ public class TeacherPrep {
 	static boolean inLoop;
 	static String response;
 	static Topic school;
+	static Topic food;
 
 	public static void main(String[] args) {
 		createFields();
@@ -22,7 +23,10 @@ public class TeacherPrep {
 			response = input.nextLine();
 			if(response.indexOf("school") >= 0){
 				inLoop = false;
-				school.talk(input);
+				school.talk();
+			}else if(response.indexOf("food") >= 0){
+				inLoop = false;
+				food.talk();
 			}else{
 				print("Sorry, I didn't understand you.");
 			}
@@ -37,13 +41,14 @@ public class TeacherPrep {
 			runMagpie();
 		}else{
 			print("Okay, let's continue talking.");	
-			c.talk(input);
+			c.talk();
 		}
 	}
 
 	private static void createFields() {
 		input = new Scanner(System.in);
 		school = new School();
+		food = new Food();
 	}
 
 	public static void print(String s){
@@ -83,7 +88,9 @@ public class TeacherPrep {
 		System.out.print(printString);
 	}
 
-
+	public static String getInput(){
+		return input.nextLine();
+	}
 
 }
 
