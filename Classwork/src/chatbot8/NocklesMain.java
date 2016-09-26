@@ -1,11 +1,16 @@
-package introduction8;
+package chatbot8;
 
 import java.util.Scanner;
 
-public class StringPract {
+public class NocklesMain {
 
+	static String response;
+	static boolean inMainLoop;
 	static Scanner input;
 	static String user;
+	//list all the chatbots available under this 
+	//class
+	static Chatbot school;
 
 
 	public static void main(String[] args) {
@@ -26,20 +31,91 @@ public class StringPract {
 	}
 
 	public static void promptForever() {
-		while(true){
-			promptInput();
+		inMainLoop = true;
+		while(inMainLoop){
+			print("Hi, "+user+". How are you?");
+			response = promptInput();
+			
+			//response to how you feel
+			if(findKeyword(response, "good", 0) >= 0){
+				print("That's wonderful. "
+						+ "So glad you feel good.");
+				
+			}
+			//response to liking school
+			else if(response.indexOf("school") >= 0){
+				print("School is great! Tell me about school.");
+				//exit this while loop
+				inMainLoop = false;
+				//go to the school's talk method
+				school.talk();
+			}
+			
+			else{
+				print("I don't understand.");
+			}
 		}
 	}
 
-	public static void promptInput() {
-		print("Please type something, "+user+".");
+	public static int findKeyword(String searchString, 
+			String keyword, 
+			int startPsn) {
+		//delete white space
+		searchString = searchString.trim();
+		//make lowercase
+		searchString = searchString.toLowerCase();
+		keyword = keyword.toLowerCase();
+		//find first position of key word
+		int psn = searchString.indexOf(0);
+		//keep searching until context keyword found
+		while(psn >= 0){
+			//Assume preceeded and followed by space
+			String before = " ";
+			String after = " ";
+			//check character in front, in it exists
+			if(psn >0){
+				before = 
+						searchString.substring(psn-1, psn);
+			}
+			//check if there is a character after the 
+			//keyword
+			if(psn+ keyword.length() < searchString.length()){
+				after = searchString.substring(psn + 
+						keyword.length(),
+						psn + keyword.length()+1);
+			}
+			if(before.compareTo("a") < 0 &&
+					after.compareTo("a") < 0){
+				return psn;
+			}else{
+				//psn+1 is one space after our current
+				//psn, so this finds the NEXT word.
+				psn = searchString.indexOf(keyword,psn+1);
+			}
+		}
+
+		return -1;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static String promptInput() {
 		String userInput = input.nextLine();
-		print("Congratulations! You typed: "+userInput);
+		return userInput;
 	}
 
 	public static void createFields() {
 		input = new Scanner(System.in);
 		user = "";
+		school = new NocklesSchool();
 	}
 
 	public static void demonstrateStringMethods(){
