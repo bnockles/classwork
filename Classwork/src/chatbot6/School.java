@@ -24,7 +24,35 @@ public class School implements Topic {
 			
 		}
 	}
+
+	public boolean isTriggered(String userInput) {
+//		String[] triggers = {"schhol","class","teacher"};
+		//you could use a for loop
+		//to iterate through an array
+		if(NocklesMain.findKeyword(userInput, "school", 0) 
+				>= 0 ){
+			return true;
+		}
+		if(NocklesMain.findKeyword(userInput, "class", 0) 
+				>= 0 ){
+			return true;
+		}
+		return false;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

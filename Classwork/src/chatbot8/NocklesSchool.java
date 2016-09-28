@@ -21,6 +21,22 @@ public class NocklesSchool implements Chatbot{
 		}
 	}
 
+	public boolean isTriggered(String userInput) {
+		String[] triggers = {"school","class","teacher"};
+		//idea: create a for loop to iterate 
+		//through your array of triggers
+		
+		if(NocklesMain.findKeyword(userInput, "school", 0) 
+				>= 0){
+			return true;
+		}
+		if(NocklesMain.findKeyword(userInput, "class", 0) 
+				>= 0){
+			return true;
+		}
+		return false;
+	}
+
 }
 
 

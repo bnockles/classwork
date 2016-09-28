@@ -35,6 +35,14 @@ public class NocklesLike implements Topic{
 		
 	}
 
+	public boolean isTriggered(String userInput) {
+		if(NocklesMain.findKeyword(userInput, "like", 0) 
+				>= 0 ){
+			return true;
+		}
+		return false;
+	}
+	
 }
 
 
