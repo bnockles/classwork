@@ -2,6 +2,8 @@ package chatbot6;
 
 import java.util.Scanner;
 
+import magpieTeacher.Hello;
+
 public class NocklesMain {
 
 	static Scanner input;
@@ -10,6 +12,7 @@ public class NocklesMain {
 	static String response;
 	static Topic school;
 	static Topic like;
+	static Topic hello;
 
 	public static void main(String[] args) {
 		createTopics();
@@ -35,7 +38,7 @@ public class NocklesMain {
 	public static void talkForever(){
 		inLoop = true;
 		while(inLoop){
-			print("Greetings, "+user+". How are you?");
+			print("Tell me something.");
 			response = getInput();
 			if(findKeyword(response, "good", 0) >= 0){
 				print("I'm so happy you're good.");
@@ -44,7 +47,9 @@ public class NocklesMain {
 				inLoop = false;
 				like.talk();
 			}
-
+			else if(Hello.isGreeting(response)){
+				hello.talk();
+			}
 			else if(findKeyword(response, "school", 0)>= 0){
 				inLoop = false;//exit this loop
 				school.talk();
@@ -204,6 +209,7 @@ public class NocklesMain {
 		input = new Scanner(System.in);
 		school = new School();
 		like = new NocklesLike();
+		hello = new Hello();
 	}
 
 
