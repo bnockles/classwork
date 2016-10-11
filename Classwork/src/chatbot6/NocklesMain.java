@@ -47,9 +47,10 @@ public class NocklesMain {
 				inLoop = false;
 				like.talk();
 			}
-//			else if(Hello.isGreeting(response)){
-//				hello.talk();
-//			}
+			else if(hello.isTriggered(response)){
+				inLoop = false;
+				hello.talk();
+			}
 			else if(school.isTriggered(response)){
 				inLoop = false;//exit this loop
 				school.talk();
@@ -209,7 +210,7 @@ public class NocklesMain {
 		input = new Scanner(System.in);
 		school = new School();
 		like = new NocklesLike();
-		hello = new Hello();
+		hello = new NocklesHello();
 	}
 
 

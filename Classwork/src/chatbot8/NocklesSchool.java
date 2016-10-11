@@ -16,6 +16,10 @@ public class NocklesSchool implements Chatbot{
 				inSchoolLoop = false;
 				NocklesMain.promptForever();
 			}
+			if(NocklesMain.school.isTriggered(schoolResponse)){
+				inSchoolLoop = false;
+				NocklesMain.school.talk();
+			}
 			NocklesMain.print("That's my favorite part "
 					+ "about school.");
 		}
