@@ -5,7 +5,69 @@ public class ArraysPractice8 {
 	static boolean[] boos3;
 	
 	public static void main(String[] args) {
+		//how do you time a process?
+		long currentTime = System.currentTimeMillis();
+		
+		
+		int x = 10;
+		x = increase(x);
+		System.out.println(x);
+		
+		String[] someStrings = new String[1000];
+		standardPopulate(someStrings);
+		String s = someStrings[999];
+		makeSpecial(s);
+		print(someStrings);
+		
+		long endTime = System.currentTimeMillis();
+		System.out.println("The process took "
+				+(endTime-currentTime) + " ms." );
+	
+	}
 
+	
+	private static int increase(int i){
+		return ++i;
+		///same as i = i+1;
+	}
+	
+	
+	private static void makeSpecial(String s) {
+		s = "THIS STRING IS SPECIAL!";
+	}
+
+	private static void print(String[] s) {
+		for(int i = 0; i < s.length; i++){
+			System.out.println(s[i]);
+		}
+	}
+
+	private static void standardPopulate(String[] s) {
+		for(int i = 0; i < s.length; i++){
+			String string = "String #"+(i+1);
+			s[i] = string;
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void initializingArraysExample(){
 		//wo different ways to instatiate an array
 		boolean[] boos1 = new boolean[3];
 		//this can ONLY be done at the declaration
@@ -54,7 +116,7 @@ public class ArraysPractice8 {
 			System.out.println(s);
 		}
 	}
-
+	
 }
 
 
