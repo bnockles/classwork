@@ -1,5 +1,17 @@
 package arrays6;
+/**
+Use Afsana for populate with random numbers, point out that the method takes an array as a parameter
+have her ammend the method to do numbers 1-50
+https://github.com/afsanac/class-projects.git
 
+
+Use Matthew Chu for populate dice method
+https://github.com/Mothballs017/classwork.git
+
+Use Daniel Goon for listing cards
+https://github.com/koolkid311/classwork.git
+
+*/
 public class ArraysMain {
 
 	public static void main(String[] args) {
