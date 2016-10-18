@@ -1,4 +1,7 @@
 package arrays6;
+
+import java.util.Random;
+
 /**
 Use Afsana for populate with random numbers, point out that the method takes an array as a parameter
 have her ammend the method to do numbers 1-50
@@ -14,6 +17,12 @@ https://github.com/koolkid311/classwork.git
 */
 public class ArraysMain {
 
+	static int[] numArray = new int[50];
+	static int[] randomArray = new int[10];
+	static int[] dieArray = new int[10000];
+	static int[] results = new int[11];
+	static String[] cardArray = new String[52];
+	
 	public static void main(String[] args) {
 		//This is how you time how 
 		//quickly a computer processes
@@ -53,6 +62,49 @@ public class ArraysMain {
 				someStrings[99]);
 	}
 	
+	private static void populateRandomArray(int[] randomArray2) {
+		for(int i = 0; i < randomArray2.length; i++){
+			randomArray2[i] = randInt(0,100);
+			System.out.println(randomArray2[i]);
+		}
+	}
+
+	public static int randInt(int min, int max) {
+		Random gen = new Random();
+		int randomNum = gen.nextInt((max - min) + 1) + min;
+		return randomNum;
+	}
+	
+	private static void populateArray(int[] someArray) {
+		for(int i = 0; i < someArray.length; i++){
+			someArray[i] = i + 1;
+			System.out.println(someArray[i]);
+		}
+	}
+	
+	private static void populateDieArray(int[] array){
+		
+		for(int i = 0; i < array.length; i++){
+			int firstRoll = randInt(1,6);
+			int secondRoll = randInt(1,6);
+			array[i] = firstRoll + secondRoll;
+			System.out.println(array[i]);
+		}
+		
+	}
+	
+	private static void populateResultsArray(int[] numsRolled){
+		for(int d = 0; d<numsRolled.length;d++){
+			results[numsRolled[d]-2]++;
+		}
+	}
+	private static void printResults(int[] arr){
+		for(int i=0;i<arr.length;i++){
+			System.out.println((i+2)+"is rolled "+
+			((double)arr[i]/dieArray.length*100)+
+			"% of the time.");
+		}
+	}
 
 	private static void changeArrayElement
 	(String[] someStrings, int i) {
