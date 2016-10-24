@@ -23,6 +23,7 @@ public class ArrayMethods {
 	}
 
 
+	public static void cycleThrough(int[] arr, int n)
 
 
 
