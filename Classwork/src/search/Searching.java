@@ -2,7 +2,10 @@ package search;
 import java.util.Scanner;
 import java.util.Timer;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'search-practice' of https://github.com/bnockles/classwork.git
 public class Searching {
 
 	Scanner in;
