@@ -2,44 +2,59 @@ package arrays8;
 
 public class AdvancedArrayMethods {
 
-	
-	
+
+
 	public static void main(String[] args) {
 		String[] array = {"a","b","c","d","e","f","g","h"};
 		shuffle(array);
-		
-		
+
+
 	}
 
-	
+
 	public static int longestSharedSequence(int[] array1, 
 			int[] array2){
 		int max = 0;
 		int count = 0;
-		
+
 		for(int seqStart = 0; seqStart < array1.length;
 				seqStart++){
-			//!!!!!insert a loop here
 			int seqEnd = seqStart;
-			int[] seq = getSequence(seqStart, seqEnd, array1);
-			if(checkSequence(seq, array2)){
-				count ++;
-				if(count > max){
-					max = count;
+			while(){
+				seqEnd ++;
+				int[] seq = getSequence(seqStart, seqEnd, array1);
+				if(checkSequence(seq, array2)){
+					count ++;
+					if(count > max){
+						max = count;
+					}
 				}
 			}
 			//reset the count after every seq has been checked
 			count = 0;
 		}
-		
-		
+
+
 		return max;
 	}
-	
+
 	//returns true if seq is found inside array2
-	private static boolean checkSequence(int[] seq, int[] array2) {
-		// TODO Auto-generated method stub
-		return false;
+	private static boolean checkSequence(int[] seq, int[] arr) {
+		//i checks every value in arr
+		A: for(int i = 0; i < arr.length; i++){
+			//j checks every element in seq
+			B: for(int j = 0; j < seq.length; j++){
+				if(j+i < arr.length && seq[j] != arr[j+i]){
+					//breaks out of inner-most for loop
+					//unless particular for loop is
+					//specified (labels "A:" )
+					break;
+				}else if(j == seq.length-1){
+					return true;
+				}
+			}
+		}
+	return false;
 	}
 
 
@@ -69,9 +84,9 @@ public class AdvancedArrayMethods {
 
 	private static void methodA(int[] someArray) {
 		int[] newArray = new int[someArray.length];
-		
+
 	}
-	
+
 	public static void copyArray(int[] original, 
 			int[] target){
 		if(original.length == target.length){
