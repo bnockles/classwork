@@ -36,9 +36,54 @@ public class ArraysMain {
 		long endTime = System.currentTimeMillis();
 		System.out.println("Completed method in "
 				+ (endTime-startTime)+ " milliseconds");
-
+		testPrimes(50);
+		
 	}
 
+	private static void testPrimes(int numberToTest) {
+		int lastToCheck = (int)(Math.sqrt(numberToTest));
+		boolean[] theNumbers = new boolean[numberToTest];
+		for(int i=0; i < numberToTest; i++){
+			theNumbers[i] = true;
+		}
+		theNumbers[0] = false;
+		theNumbers[1] = false;
+		int increment = 2;
+		boolean first = true;
+		for(int test = 2; test < numberToTest; 
+				test = test + increment){
+			if(!first){
+				theNumbers[test] = false;
+			}else{
+				first = false;
+			}
+		}
+		for(int i = 0; i < theNumbers.length; i++){
+			if(theNumbers[i]){
+				System.out.println(i + " is prime.");
+			}
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private static void passByValueDemonstration(){
 		String[] someStrings = new String[100];
 		populateArray(someStrings);
