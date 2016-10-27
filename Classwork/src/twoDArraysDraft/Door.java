@@ -25,4 +25,8 @@ public class Door {
 			return "";
 		}
 	}
+
+	public boolean isLocked() {
+		return locked;
+	}
 }

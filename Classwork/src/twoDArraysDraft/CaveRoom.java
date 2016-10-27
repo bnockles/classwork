@@ -22,6 +22,7 @@ public class CaveRoom {
 			borderingRooms[i] = null;
 			doors[i] = null;
 		}
+		setDirections();
 	}
 
 	protected void setDirections() {
@@ -30,11 +31,11 @@ public class CaveRoom {
 				doors[EAST] == null &&
 				doors[SOUTH] == null &&
 				doors[WEST] == null){
-			directions = "This is a room with no exit. You will die here.";		
+			directions = "\n\nThis is a room with no exit. You will die here.";		
 		}else{
 			for(int dir = 0; dir < doors.length; dir++){
 				if(doors[dir] != null){
-					directions += "There is a "+doors[dir].getDescription()+" to "+toDirection(dir)+". "+doors[dir].getDetails();
+					directions += "\n   There is a "+doors[dir].getDescription()+" to "+toDirection(dir)+". "+doors[dir].getDetails();
 				}
 			}
 		}
@@ -55,11 +56,12 @@ public class CaveRoom {
 	public void addRoom(int direction, CaveRoom anotherRoom, Door door){
 		borderingRooms[direction] = anotherRoom;
 		doors[direction] = door;
+		setDirections();
 	}
 	
 	/**
 	 * Gives this room access to anotherRoom (and vice-versa) and
-	 * sets a door between them
+	 * sets a door between them, and updates the directions
 	 * @param direction
 	 * @param anotherRoom
 	 * @param door
@@ -67,7 +69,6 @@ public class CaveRoom {
 	public void setConnection(int direction, CaveRoom anotherRoom, Door door){
 		addRoom(direction, anotherRoom, door);
 		anotherRoom.addRoom(oppositeDirection(direction), this, door);
-		
 	}
 
 	/**
@@ -79,5 +80,41 @@ public class CaveRoom {
 		return (dir+2)%4;
 	}
 
+	
+	public String getDescription(){
+		return description+directions;
+	}
+
+	public CaveRoom interpretAction(String command) {
+		boolean valid = isValidCommand(command);
+		while(!valid){
+			System.out.println("In this room, you can only enter 'w','a','s', or 'd'.");
+			command = CaveExplorer.waitForInput();
+		}
+		if(command.equals("a")) return moveToRoom(WEST);
+		else if(command.equals("d")) return moveToRoom(EAST);
+		else if(command.equals("w")) return moveToRoom(NORTH);
+		else if(command.equals("s")) return moveToRoom(SOUTH);
+		return this;
+	}
+	
+	private CaveRoom moveToRoom(int dir){
+		if(borderingRooms[dir] != null && !doors[dir].isLocked()){
+			return borderingRooms[dir];
+		}else{
+			return this;
+		}
+	}
+
+	private boolean isValidCommand(String command) {
+		return command.equals("w") ||
+				command.equals("d") ||
+				command.equals("s") ||
+				command.equals("a"); 
+	}
+
+	public void setDescription(String string) {
+		description = string;
+	}
 
 }
