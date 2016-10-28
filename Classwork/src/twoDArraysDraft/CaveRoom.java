@@ -105,6 +105,10 @@ public class CaveRoom {
 			return this;
 		}
 	}
+	
+	public Door getDoor(int dir){
+		return doors[dir];
+	}
 
 	private boolean isValidCommand(String command) {
 		return command.equals("w") ||

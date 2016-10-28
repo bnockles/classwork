@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class CaveExplorer {
 
-	private CaveRoom[][] caves;
+	public static CaveRoom[][] caves;
 	private static Scanner in;
-	private CaveRoom currentRoom;
+	public static CaveRoom currentRoom;
 	private Inventory inventory;
 
 	
@@ -36,11 +36,16 @@ public class CaveExplorer {
 	
 	private void startExploring() {
 		while(true){
+			print(inventory.getDescription());
 			System.out.println(currentRoom.getDescription());
 			System.out.println("What would you like to do?");
 			String input = waitForInput();
 			act(input);
 		}
+	}
+	
+	public static void print(String s){
+		System.out.println(s);
 	}
 
 
