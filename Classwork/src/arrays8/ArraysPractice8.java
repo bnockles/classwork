@@ -6,26 +6,81 @@ public class ArraysPractice8 {
 
 	public static void main(String[] args) {
 		
-		long currentTime = System.currentTimeMillis();
+		listPrimes(200000);
 		
-		//int totalNumbers = 50;
-		int[] fiftyNumbers = new int[50000];
-		//populate(fiftyNumbers);
-		//print(fiftyNumbers);
-		//randomize(fiftyNumbers);
-		//print(fiftyNumbers);
-		rollDice(fiftyNumbers, 4);
-//		print(fiftyNumbers);
-		//count each die roll and provide a percentage
-		countResult(fiftyNumbers, 4);
-		
-		
-		
-		
-		long endTime = System.currentTimeMillis();
-		System.out.println("The process took "+(endTime-currentTime) + " ms.");
+//		long currentTime = System.currentTimeMillis();
+//		
+//		//int totalNumbers = 50;
+//		int[] fiftyNumbers = new int[50000];
+//		//populate(fiftyNumbers);
+//		//print(fiftyNumbers);
+//		//randomize(fiftyNumbers);
+//		//print(fiftyNumbers);
+//		rollDice(fiftyNumbers, 4);
+////		print(fiftyNumbers);
+//		//count each die roll and provide a percentage
+//		countResult(fiftyNumbers, 4);
+//		
+//		
+//		
+//		
+//		long endTime = System.currentTimeMillis();
+//		System.out.println("The process took "+(endTime-currentTime) + " ms.");
 		
 	}
+	
+	
+	
+	private static void listPrimes(int limit) {
+		int lastToCheck = (int)(Math.sqrt(limit));
+		boolean[] numbers = new boolean[limit+1];
+		for(int i=0; i < limit+1; i++){
+			numbers[i] = false;
+		}
+		//0 and 1 are, by definition, not prime
+		numbers[0]=false;
+		numbers[1]=false;
+		//check all non-"crossed of" numbers (start with 2)
+		for(int prime = 2; prime <= lastToCheck; prime++){
+			if(numbers[prime]){
+				System.out.println("\n"+prime+" is prime."
+						+ " Crossing off:");
+				for(int i = (int)(Math.pow(prime, 2));
+						i < limit+1; i += prime){
+					System.out.print(i+", ");
+					numbers[i] = false;
+				}
+			}
+		}
+		//print the primes
+		System.out.println("The primes are:");
+		for(int index = 0; index < numbers.length; index++){
+			if(numbers[index])System.out.print(index+", ");
+		}
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	private static void countResult(int[] m, int numberOfDice) {
 		System.out.println("CountResultMethod");

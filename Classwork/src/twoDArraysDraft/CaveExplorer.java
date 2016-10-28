@@ -7,6 +7,8 @@ public class CaveExplorer {
 	private CaveRoom[][] caves;
 	private static Scanner in;
 	private CaveRoom currentRoom;
+	private Inventory inventory;
+
 	
 	public static void main(String[] args){
 		in = new Scanner(System.in);
@@ -28,6 +30,7 @@ public class CaveExplorer {
 		caves[3][4].setConnection(CaveRoom.NORTH, caves[2][4], new Door());
 		caves[2][4].setConnection(CaveRoom.WEST, caves[2][3], new Door());
 		caves[2][3].setConnection(CaveRoom.SOUTH, caves[3][3], new Door());
+		inventory = new Inventory(caves);
 		startExploring();
 	}
 	
