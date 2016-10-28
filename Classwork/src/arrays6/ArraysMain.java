@@ -48,21 +48,31 @@ public class ArraysMain {
 		}
 		theNumbers[0] = false;
 		theNumbers[1] = false;
-		int increment = 2;
-		boolean first = true;
-		for(int test = 2; test < numberToTest; 
-				test = test + increment){
-			if(!first){
-				theNumbers[test] = false;
-			}else{
-				first = false;
+		
+		for(int prime = 2; prime <= lastToCheck; prime++){
+			//when checking 50 numbers,
+			//tests 2,3,4,5,6,7 as if prime
+			if(theNumbers[prime]){
+				//only checks numbers that are prime
+				//(numbers that haven't been "crossed off")
+				//won't check 4 and 6 (crossed off by 2)
+				System.out.println("\n"+prime+ " is prime. "
+						+ "Crossing off:");
+
+				for(int test = prime + prime; test < numberToTest; 
+						test = test + prime){
+					System.out.print(test+", ");
+					theNumbers[test] = false;
+				}
 			}
 		}
+		System.out.println();
 		for(int i = 0; i < theNumbers.length; i++){
 			if(theNumbers[i]){
 				System.out.println(i + " is prime.");
 			}
 		}
+		
 	}
 
 	
