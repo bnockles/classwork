@@ -30,9 +30,9 @@ public class Inventory {
 					}else{
 						map+=" ";
 					}
-					if(i == 1 && CaveExplorer.currentRoom == cr){
-						map+=" X ";
-					}else if(i!= 2){
+					if(i == 1){
+						map+=cr.getContents();
+					}else if(i== 0){
 						map+="   ";
 					}
 					if(i ==2){

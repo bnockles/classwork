@@ -4,6 +4,8 @@ public class CaveRoom {
 
 	private String description;
 	private String directions;
+	private String contents;
+	private String defaultContents;
 
 	private CaveRoom[] borderingRooms;
 	private Door[] doors; 
@@ -16,6 +18,9 @@ public class CaveRoom {
 
 	public CaveRoom(String description){
 		this.description = description;
+		setDefaultContents("   ");
+		contents = defaultContents;
+		
 		borderingRooms = new CaveRoom[4];
 		doors = new Door[4];
 		for(int i = 0 ; i < borderingRooms.length; i++){
@@ -42,6 +47,21 @@ public class CaveRoom {
 	
 	}
 
+	public String getContents(){
+		return contents;
+	}
+	
+	public void enter(){
+		contents = " X ";
+	}
+	
+	public void leave(){
+		contents = defaultContents;
+	}
+	
+	public void setDefaultContents(String symbol){
+		defaultContents = symbol;
+	}
 	
 	private static String toDirection(int dir) {
 		switch(dir){
@@ -100,6 +120,8 @@ public class CaveRoom {
 	
 	private CaveRoom moveToRoom(int dir){
 		if(borderingRooms[dir] != null && !doors[dir].isLocked()){
+			leave();
+			borderingRooms[dir].enter();
 			return borderingRooms[dir];
 		}else{
 			return this;

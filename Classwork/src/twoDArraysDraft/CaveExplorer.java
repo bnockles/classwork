@@ -24,6 +24,7 @@ public class CaveExplorer {
 			}
 		}
 		currentRoom = caves[3][3];
+		currentRoom.enter();
 		caves[3][3].setConnection(CaveRoom.EAST, caves[3][4], new Door());
 		caves[3][3].setDescription("This is the room you started in.");
 		
@@ -50,6 +51,7 @@ public class CaveExplorer {
 
 
 	private void act(String input) {
+		
 		currentRoom = currentRoom.interpretAction(input);
 	}
 
