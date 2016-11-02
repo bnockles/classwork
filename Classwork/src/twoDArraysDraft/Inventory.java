@@ -7,7 +7,7 @@ public class Inventory {
 	
 
 	public Inventory(CaveRoom[][] caves) {
-		hasMap = true;
+		hasMap = false;
 		updateMap();
 	}
 
@@ -57,6 +57,10 @@ public class Inventory {
 		}else{
 			return "You have no inventory.";
 		}
+	}
+
+	public void setMap(boolean b) {
+		hasMap = b;
 	}
 
 }
