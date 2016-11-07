@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Connect4 {
 	
-	public static final boolean PRINT_SPLIT = true;
+	public static final boolean PRINT_SPLIT = false;
 	public static Scanner in = new Scanner(System.in);
 	static boolean[][] arr2D;//change this from String
 	static String[][] pic;
