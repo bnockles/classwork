@@ -142,6 +142,12 @@ public class CaveRoomPd8 {
 				break;
 			}
 		}
+		goToRoom(indexFound);
+		
+	}
+
+	
+	public void goToRoom(int indexFound) {
 		if(borderingRooms[indexFound] != null && 
 				doors[indexFound]!= null &&
 				doors[indexFound].isOpen()){
@@ -150,10 +156,8 @@ public class CaveRoomPd8 {
 			CaveExplorer.currentRoom.enter();
 			CaveExplorer.inventory.updateMap();
 		}
-		
 	}
 
-	
 	public static boolean isValid(String input){
 		String[] keys = {"w","d","s","a"};
 		for(String key : keys){

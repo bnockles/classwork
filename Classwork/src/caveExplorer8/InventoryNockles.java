@@ -1,6 +1,6 @@
 package caveExplorer8;
 
-
+import caveExplorer6.CaveRoom;
 
 public class InventoryNockles {
 
@@ -12,9 +12,9 @@ public class InventoryNockles {
 		hasMap = false;
 		updateMap();
 	}
-	
-	
-	
+
+
+
 
 	public void setHasMap(boolean hasMap) {
 		this.hasMap = hasMap;
@@ -42,16 +42,21 @@ public class InventoryNockles {
 				for(CaveRoomPd8 cr : row){
 					String str = "|   ";
 					String contents = cr.getContents();
-					
-					if(textRow == 1 && 
-							cr.getDoor(CaveRoomPd8.WEST)!=null){
-						str = "  "+contents+" ";
+
+					if(textRow == 1){
+						if(cr.getDoor(CaveRoomPd8.WEST)!=null &&
+								cr.getDoor(CaveRoomPd8.WEST).isOpen()){
+							str = "  "+contents+" ";
+						}else{
+							str = "| "+contents+" ";
+						}
 					}
 					else if(textRow == 2){
-						if(cr.getDoor(CaveRoomPd8.SOUTH) ==null){
-							str = "|___";
-						}else{
+						if(cr.getDoor(CaveRoomPd8.SOUTH) !=null &&
+								cr.getDoor(CaveRoomPd8.SOUTH).isOpen()){
 							str = "|_ _";
+						}else{
+							str = "|___";
 						}
 					}
 					map+=str;

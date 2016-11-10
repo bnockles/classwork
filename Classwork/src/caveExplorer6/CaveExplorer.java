@@ -6,9 +6,9 @@ import java.util.Scanner;
 public class CaveExplorer {
 
 	public static CaveRoom[][] caves;
-	private static Scanner in;
+	public static Scanner in;
 	public static CaveRoom currentRoom;
-	private static Inventory inventory;
+	public static Inventory inventory;
 
 	
 	public static void main(String[] args){
@@ -20,6 +20,9 @@ public class CaveExplorer {
 				caves[i][j] = new CaveRoom("This cave has coordinates "+i+", "+j);
 			}
 		}
+		caves[0][2] = new EventRoom("This is the room"
+				+ " where that guy with a tail met you.",
+				new GameStartEvent());
 		currentRoom = caves[0][1];
 		currentRoom.enter();
 		caves[0][1].setConnection(CaveRoom.EAST,caves[0][2],new Door());
@@ -39,6 +42,11 @@ public class CaveExplorer {
 			String input = in.nextLine();
 			currentRoom.interpretInput(input);
 		}
+	}
+
+
+	public static void print(String string) {
+		System.out.println(string);
 	}
 	
 	
