@@ -149,6 +149,23 @@ public class CaveRoom {
 		}
 		return false;
 	}
+
+	public static void setUpCaves() {
+		CaveExplorer.caves = new CaveRoom[5][5];
+		for(int i = 0; i < CaveExplorer.caves.length; i++){
+			for(int j = 0; j < CaveExplorer.caves[i].length; j++){
+				CaveExplorer.caves[i][j] = new CaveRoom("This cave has coordinates "+i+", "+j);
+			}
+		}
+		CaveExplorer.caves[0][2] = new EventRoom("This is the room"
+				+ " where that guy with a tail met you.",
+				new GameStartEvent());
+		CaveExplorer.currentRoom = CaveExplorer.caves[0][1];
+		CaveExplorer.currentRoom.enter();
+		CaveExplorer.caves[0][1].setConnection(CaveRoom.EAST,CaveExplorer.caves[0][2],new Door());
+		CaveExplorer.caves[0][2].setConnection(CaveRoom.SOUTH,CaveExplorer.caves[1][2],new Door());
+		CaveExplorer.caves[1][2].setConnection(CaveRoom.SOUTH,CaveExplorer.caves[2][2],new Door());
+	}
 	
 	
 	
