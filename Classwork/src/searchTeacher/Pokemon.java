@@ -12,6 +12,7 @@ public class Pokemon {
 		hp = 100;
 		this.name = name;
 		this.level = level;
+		this.poisoned = false;
 	}
 	
 	public void attack(Pokemon target, Attack attack){
