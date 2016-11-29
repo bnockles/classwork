@@ -1,4 +1,4 @@
-package searchTeacher;
+package sort8;
 
 public class MainBattle {
 
@@ -9,33 +9,7 @@ public class MainBattle {
 		bulbasaur.iChooseYou();
 		System.out.println("Squirtle is preparing to attack with water blast");
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		squirtle.attack(bulbasaur, new Attack() {
-			
-			public void attack(Pokemon target) {
-				int hp = target.getHP();
-				target.setHP(hp/2);
-			}
-		});
-		System.out.println("Bulbasaur is preparing to attack with poison.");
-		bulbasaur.attack(squirtle, new Attack() {
-			
-			public void attack(Pokemon target) {
-				target.setPoisoned(true);
-			}
-		});
+		//create a way for squirtle and bulbasaur to attack
 		squirtle.lapse();
 		bulbasaur.lapse();
 		printScore(squirtle, bulbasaur);
