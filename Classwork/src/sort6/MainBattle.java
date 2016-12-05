@@ -9,7 +9,21 @@ public class MainBattle {
 		bulbasaur.iChooseYou();
 		System.out.println("Raticate is preparing "
 				+ "to attack with super fang");
-		
+		raticate.attack(bulbasaur, new Attack() {
+			
+			public void attack(Pokemon target) {
+				System.out.println("Super fang is used!");
+				int newHP = target.getHP()/2;
+				target.setHP(newHP);
+			}
+		});
+		bulbasaur.attack(raticate, new Attack() {
+			
+			public void attack(Pokemon target) {
+				System.out.println("Poison powder is used!");
+				target.setPoisoned(true);
+			}
+		});
 		//create a way for raticate and bulbasaur to attack
 		raticate.lapse();
 		bulbasaur.lapse();
