@@ -82,4 +82,64 @@ public class SortingAlgorithms {
 			//keep doing that repeatedly, eventually the largest values will "float" to the top
 		}
 	}
+
+	public static int[] mergeSort(int[] arrayToSort){
+		int n = arrayToSort.length;
+
+		if(n<=1){
+			//trivial sort when only one (or no) element
+			//is in the array
+			return arrayToSort;
+		}else{	
+			//split the array in half
+			int[] partA = new int[n/2];
+			//be careful of rounding!
+			int[] partB = new int[n-n/2];
+			for(int i=0; i<n; i++){
+				if(i<partA.length){
+					partA[i]=arrayToSort[i];
+				}else{
+					partB[i-partA.length]=arrayToSort[i];
+				}
+			}
+			return merge(mergeSort(partA),mergeSort(partB));
+		}
+	}
+
+	public static int[] merge(int[] partA, int[] partB){
+		int aIndex = 0;
+		int bIndex = 0;
+		int[] merge = new int[partA.length + partB.length];
+		//merge index
+		int i = 0;
+		while(aIndex < partA.length && bIndex < partB.length){
+			if(partA[aIndex] < partB[bIndex]){
+				merge[i]=partA[aIndex];
+				aIndex++;
+				i++;
+			}else{
+				merge[i]=partB[bIndex];
+				bIndex++;
+				i++;
+			}
+		}
+		//add leftovers
+		while(aIndex < partA.length){
+			merge[i]=partA[aIndex];
+			aIndex++;
+			i++;
+		}
+		while(bIndex < partB.length){
+			merge[i]=partB[bIndex];
+			bIndex++;
+			i++;
+		}
+		return merge;
+	}
+
+
+
+
+
+
 }
