@@ -8,7 +8,10 @@ public class CaveExplorer {
 	public static Scanner in;
 	public static CaveRoom currentRoom;
 	public static Inventory inventory;
-
+	//Note: because all of the methods in this class are static, 
+	//we are breaking standard convention and making all fields public. In your own classes, 
+	//your methods should not be static and your firelds should be private
+	public static boolean lose;
 	
 	public static void main(String[] args){
 		in = new Scanner(System.in);
@@ -18,7 +21,8 @@ public class CaveExplorer {
 				caves[i][j] = new CaveRoom("This cave has coordinates "+i+", "+j);
 			}
 		}
-		caves[3][4] = new EventRoom("This room is dark and forlorn.",new GameStartEvent());
+		caves[3][4]= new EventRoom("This is the room where you got the map", new GameStartEvent());
+		caves[2][3]= new EventRoom("This is the room where you saved the world from nuclear holocaust.", new DefconEvent() );
 		currentRoom = caves[3][3];
 		currentRoom.enter();
 		caves[3][3].setConnection(CaveRoom.EAST, caves[3][4], new Door());
@@ -32,7 +36,7 @@ public class CaveExplorer {
 	}
 	
 	private static void startExploring() {
-		while(true){
+		while(!lose){
 			System.out.println(inventory.getDescription());//do not use print method. Inventory width should not be controlled
 			System.out.println(currentRoom.getDescription());
 			System.out.println("What would you like to do?");
