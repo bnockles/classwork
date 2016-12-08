@@ -39,8 +39,10 @@ public abstract class GUIApplication extends JFrame implements Runnable{
 	
 	public abstract void initScreen();
 
-	public void setScreen(Screen startScreen) {
-		currentScreen = startScreen;
+	public void setScreen(Screen screen) {
+		if(currentScreen.getMouseListener() != null) removeMouseListener(currentScreen.getMouseListener());
+		currentScreen = screen;
+		if(currentScreen.getMouseListener() != null)addMouseListener(currentScreen.getMouseListener());
 	}
 	
 	public void paint(Graphics g){

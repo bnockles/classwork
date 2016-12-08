@@ -2,9 +2,13 @@ package guiTeacher;
 
 public class MouseCoordinateGame extends GUIApplication {
 
-
+	public static MouseCoordinateGame game;
+	public static TextScreen coordinateScreen;
+	public static BallScreen ballScreen;
+	
 	public static void main(String[] args){
-		Thread app = new Thread(new MouseCoordinateGame(500, 500));
+		game = new MouseCoordinateGame(500, 500);
+		Thread app = new Thread(game);
 		app.start();
 	}
 
@@ -13,9 +17,12 @@ public class MouseCoordinateGame extends GUIApplication {
 	}
 	
 	public void initScreen() {
-		TextScreen startScreen= new TextScreen("Hi everyone",getWidth(), getHeight());
-		addMouseMotionListener(new CoordinateListener(startScreen));
-		setScreen(startScreen);
+		
+		ballScreen = new BallScreen(getWidth(),getHeight());
+		coordinateScreen= new TextScreen("Hi everyone",getWidth(), getHeight());
+		
+		
+		setScreen(coordinateScreen);
 		
 	}
 

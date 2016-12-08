@@ -1,5 +1,6 @@
 package guiTeacher;
 
+import java.util.List;
 
 public class TextScreen extends Screen implements MessageDisplayer{
 
@@ -12,10 +13,10 @@ public class TextScreen extends Screen implements MessageDisplayer{
 	}
 
 	@Override
-	public void initObjects() {
+	public void initObjects(List<Visible> viewObjects) {
 		label = new TextLabel(40, getHeight()-45, getWidth()-80, 40, "");
 		label.setSize(40);
-		addObject(label);
+		viewObjects.add(label);
 	}
 
 	public void displayMessage(String message) {

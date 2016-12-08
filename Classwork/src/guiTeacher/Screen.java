@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +18,15 @@ public abstract class Screen {
 	public Screen(int width, int height) {
 		viewObjects = new ArrayList<Visible>();
 		initImage(width, height);
-		initObjects();
+		initObjects(viewObjects);
 	}
 
 	/**
 	 * adds objects to viewObjects 
 	 */
-	public abstract void initObjects();
+	public abstract void initObjects(List<Visible> viewObjects);
 
+	
 	public void initImage(int width, int height) {
 		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		update();
@@ -78,6 +81,14 @@ public abstract class Screen {
 	
 	public Image getImage(){
 		return image;
+	}
+
+	public MouseListener getMouseListener() {
+		return null;
+	}
+	
+	public MouseMotionListener getMouseMotionListener() {
+		return null;
 	}
 
 }
