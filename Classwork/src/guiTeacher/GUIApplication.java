@@ -4,13 +4,20 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-public class GUIApplication extends JFrame{
+public abstract class GUIApplication extends JFrame implements Runnable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 390738816689963935L;
 	private Screen currentScreen;
 	private boolean scaleWithWindow; 
 	
-	public static void main(String[] args){
-		new GUIApplication(500, 500);
-	}
+	//this method gets deleted once generalized
+//	public static void main(String[] args){
+//		Thread app = new Thread(new GUIApplication(500, 500));
+//		app.start();
+//	}
 	
 	public GUIApplication(int width, int height){
 		super();
@@ -22,11 +29,15 @@ public class GUIApplication extends JFrame{
 		setVisible(true);
 	}
 
-	public void initScreen() {
-		Screen startScreen= new Screen(getWidth(), getHeight());
-		setScreen(startScreen);
-		
-	}
+	//this method becomes abstract once generalized
+//	public void initScreen() {
+//		TextScreen startScreen= new TextScreen("Hi everyone",getWidth(), getHeight());
+//		addMouseMotionListener(new CoordinateListener(startScreen));
+//		setScreen(startScreen);
+//		
+//	}
+	
+	public abstract void initScreen();
 
 	public void setScreen(Screen startScreen) {
 		currentScreen = startScreen;
@@ -38,6 +49,18 @@ public class GUIApplication extends JFrame{
 		}else{
 			
 			g.drawImage(currentScreen.getImage(), 0, 0, null);
+		}
+	}
+
+	public void run() {
+		while(true){
+			currentScreen.update();
+			repaint();
+			try {
+				Thread.sleep(40);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

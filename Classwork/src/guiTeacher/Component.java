@@ -34,13 +34,8 @@ public abstract class Component implements Visible {
 
 	}
 
-	public boolean isDynamic() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	public boolean isAnimated() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

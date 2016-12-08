@@ -10,6 +10,5 @@ public interface Visible {
 	public int getWidth();
 	public int getHeight();
 	public void update();
-	public boolean isDynamic();
 	public boolean isAnimated();
 }
