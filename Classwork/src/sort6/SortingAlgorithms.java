@@ -6,13 +6,13 @@ public class SortingAlgorithms {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] arrayToSort={133,0,-5,31,12,12,2};
-		System.out.println("- - - MERGE SORT - - -");
+		int[] arrayToSort={2,1,0,16,8,15};
+		System.out.println("- - - TEST SORT - - -");
 		System.out.println(Arrays.toString(arrayToSort));
-		mergeSort(copy(arrayToSort));
-		System.out.println("- - - QUICK SORT - - -");
-		System.out.println(Arrays.toString(arrayToSort));
-		quickSort(copy(arrayToSort), 0, arrayToSort.length-1);
+		sort(copy(arrayToSort));
+		//		System.out.println("- - - QUICK SORT - - -");
+		//		System.out.println(Arrays.toString(arrayToSort));
+		//		quickSort(copy(arrayToSort), 0, arrayToSort.length-1);
 	}
 
 	public static int[] copy(int[] arr){
@@ -22,6 +22,8 @@ public class SortingAlgorithms {
 		}
 		return copy;
 	}
+
+
 
 	public static void swap(int[] arr, int i, int j){
 		System.out.println("Swapping "+arr[i]+" and "+arr[j]);
@@ -144,8 +146,8 @@ public class SortingAlgorithms {
 		System.out.println("...Result: "+Arrays.toString(merge));
 		return merge;
 	}
-	
-	
+
+
 	//since quickSort is recursive, the start and end must be specified 
 	//(to break it down through recursive calls)
 	public static void quickSort(int[] arrayToSort, int start, int end){
@@ -175,7 +177,7 @@ public class SortingAlgorithms {
 			if(pIndex-1 < end)quickSort(arrayToSort, pIndex+1, end);
 		}
 	}
-	
+
 
 
 
