@@ -5,6 +5,7 @@ import java.util.List;
 public class BallScreen extends Screen {
 
 	private Ball ball;
+	Mou
 	
 	public BallScreen(int width, int height) {
 		super(width, height);
@@ -24,8 +25,7 @@ public class BallScreen extends Screen {
 	}
 
 	@Override
-	public void initListeners() {
-		CoordinateListener cl = new CoordinateListener();
+	public MouseMotionListener getMouseMotionListener(){
 		
 	}
 
