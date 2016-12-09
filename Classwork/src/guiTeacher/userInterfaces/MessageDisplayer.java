@@ -1,4 +1,4 @@
-package guiTeacher;
+package guiTeacher.userInterfaces;
 
 public interface MessageDisplayer {
 

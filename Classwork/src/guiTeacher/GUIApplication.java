@@ -4,6 +4,8 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
+import guiTeacher.userInterfaces.Screen;
+
 public abstract class GUIApplication extends JFrame implements Runnable{
 	
 	/**
@@ -40,9 +42,15 @@ public abstract class GUIApplication extends JFrame implements Runnable{
 	public abstract void initScreen();
 
 	public void setScreen(Screen screen) {
-		if(currentScreen.getMouseListener() != null) removeMouseListener(currentScreen.getMouseListener());
+		if(currentScreen != null){
+			if(currentScreen.getMouseListener() != null) removeMouseListener(currentScreen.getMouseListener());
+			if(currentScreen.getMouseMotionListener() != null) removeMouseMotionListener(currentScreen.getMouseMotionListener());
+		}
 		currentScreen = screen;
-		if(currentScreen.getMouseListener() != null)addMouseListener(currentScreen.getMouseListener());
+		if(currentScreen != null){
+			if(currentScreen.getMouseListener() != null)addMouseListener(currentScreen.getMouseListener());
+			if(currentScreen.getMouseMotionListener() != null) addMouseMotionListener(currentScreen.getMouseMotionListener());
+		}
 	}
 	
 	public void paint(Graphics g){

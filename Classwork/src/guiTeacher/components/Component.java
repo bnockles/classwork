@@ -1,4 +1,4 @@
-package guiTeacher;
+package guiTeacher.components;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

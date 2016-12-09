@@ -1,4 +1,4 @@
-package guiTeacher;
+package guiTeacher.components;
 
 import java.awt.Color;
 import java.awt.Font;

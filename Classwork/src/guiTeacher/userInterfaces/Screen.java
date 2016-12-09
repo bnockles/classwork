@@ -1,4 +1,4 @@
-package guiTeacher;
+package guiTeacher.userInterfaces;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -9,6 +9,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
+import guiTeacher.components.Visible;
 
 public abstract class Screen {
 
