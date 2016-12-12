@@ -4,16 +4,11 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-public class GUIApplication extends JFrame{
+public abstract class GUIApplication extends JFrame{
 
 	//FIELDS
 	private Screen currentScreen;
 	
-	
-	//demo purposes only
-	public static void main(String[] args) {
-		new GUIApplication(800,600);
-	}
 
 	public GUIApplication(int width, int height) {
 		super();
@@ -24,15 +19,15 @@ public class GUIApplication extends JFrame{
 		setVisible(true);
 	}
 
-	public void initScreen() {
-		currentScreen = new Screen(getWidth(),getHeight());
-	}
+	public abstract void initScreen();
 	
 	public void paint(Graphics g){
 		g.drawImage(currentScreen.getImage(), 0, 0, null);
 	}
 
-
+	public void setScreen(Screen s){
+		currentScreen = s;
+	}
 	
 	
 	
