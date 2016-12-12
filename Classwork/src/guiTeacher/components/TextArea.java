@@ -10,7 +10,7 @@ public class TextArea extends TextLabel {
 
 	public TextArea(int x, int y, int w, int h, String text) {
 		super(x, y, w, h, text);
-		
+
 	}
 
 	public void update(Graphics2D g){
@@ -21,20 +21,21 @@ public class TextArea extends TextLabel {
 		g.setColor(Color.black);
 		if(getText() != null){
 			String[] words = getText().split(" ");
-			int i = 0;
-			final int SPACING = 2;
-			int y = 0 + fm.getHeight()+fm.getAscent()+SPACING;
 			if(words.length >0){
+				int i = 0;
+				final int SPACING = 2;
+				int y = 0 + fm.getHeight()+fm.getAscent()+SPACING;
 				String line = words[i] + " ";
 				i++;
 				while(i < words.length){
-					while(fm.stringWidth(line) + fm.stringWidth(words[i]) < getWidth()){
-						line += words[i];
+					while(i < words.length && fm.stringWidth(line) + fm.stringWidth(words[i]) < getWidth()){
+						line += words[i]+" ";
 						i++;
 					}
 					if(y < getHeight()){
 						g.drawString(line, 2, y);
 						y += fm.getDescent() + fm.getHeight()+fm.getAscent()+SPACING;
+						line = "";
 					}else{
 						break;//print no more text
 					}
