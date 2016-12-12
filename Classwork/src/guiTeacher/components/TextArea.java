@@ -24,7 +24,7 @@ public class TextArea extends TextLabel {
 			if(words.length >0){
 				int i = 0;
 				final int SPACING = 2;
-				int y = 0 + fm.getHeight()+fm.getAscent()+SPACING;
+				int y = 0 + fm.getHeight()+SPACING;
 				String line = words[i] + " ";
 				i++;
 				while(i < words.length){
@@ -34,7 +34,7 @@ public class TextArea extends TextLabel {
 					}
 					if(y < getHeight()){
 						g.drawString(line, 2, y);
-						y += fm.getDescent() + fm.getHeight()+fm.getAscent()+SPACING;
+						y += fm.getDescent() + fm.getHeight()+SPACING;
 						line = "";
 					}else{
 						break;//print no more text
