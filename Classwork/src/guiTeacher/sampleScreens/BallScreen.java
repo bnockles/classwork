@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 
+import guiTeacher.components.TextArea;
 import guiTeacher.components.Visible;
 import guiTeacher.sampleObjects.Ball;
 import guiTeacher.userInterfaces.Screen;
@@ -19,8 +20,12 @@ public class BallScreen extends Screen implements MouseMotionListener{
 
 	@Override
 	public void initObjects(List<Visible> viewObjects) {
+		TextArea ta = new TextArea(2,2,500,400,"This is a sample of a text area. It should run multiple lines if I did everything right. I'm not sure if I did though.");
+		ta.update();
 		ball = new Ball(40,40,50,50); 
+		viewObjects.add(ta);
 		viewObjects.add(ball);
+		
 	}
 
 	public void setBallPosition(int x, int y) {
