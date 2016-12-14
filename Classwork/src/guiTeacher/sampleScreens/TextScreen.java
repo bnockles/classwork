@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 
+import guiTeacher.components.Action;
 import guiTeacher.components.Button;
 import guiTeacher.components.TextLabel;
 import guiTeacher.components.Visible;
@@ -27,7 +28,12 @@ public class TextScreen extends Screen implements MessageDisplayer, MouseMotionL
 	@Override
 	public void initObjects(List<Visible> viewObjects) {
 		label = new TextLabel(40, getHeight()-45, getWidth()-80, 40, "");
-		goToFollower = new Button(40,50,100,30,"Button",new Color(0,76,153));
+		goToFollower = new Button(40,50,100,30,"Button that is really descriptive",new Color(0,76,255), new Action() {
+			
+			public void act() {
+				MouseCoordinateGame.game.setScreen(MouseCoordinateGame.ballScreen);
+			}
+		});
 		goToFollower.setSize(12);
 		label.setSize(40);
 		viewObjects.add(label);
@@ -57,8 +63,8 @@ public class TextScreen extends Screen implements MessageDisplayer, MouseMotionL
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if(goToFollower.isClicked(e.getX(), e.getY())){
-			MouseCoordinateGame.game.setScreen(MouseCoordinateGame.ballScreen);
+		if(goToFollower.isHovered(e.getX(), e.getY())){
+			goToFollower.act();
 		}
 	}
 

@@ -2,6 +2,7 @@ package guiTeacher.components;
 
 public interface Clickable {
 
-	public boolean isClicked(int x, int y);
+	public boolean isHovered(int x, int y);
+	public void act();
 	
 }
