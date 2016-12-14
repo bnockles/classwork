@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import guiTeacher.GUIApplication;
 import guiTeacher.components.Visible;
 
 public abstract class Screen {
@@ -34,7 +35,7 @@ public abstract class Screen {
 		update();
 		
 	}
-
+	
 	public int getWidth(){
 		return image.getWidth();
 	}

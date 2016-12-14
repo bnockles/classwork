@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 
+import guiTeacher.GUIApplication;
 import guiTeacher.components.Graphic;
 import guiTeacher.components.TextArea;
 import guiTeacher.components.Visible;
@@ -15,7 +16,7 @@ public class BallScreen extends Screen implements MouseMotionListener{
 	private Graphic ball;
 	
 	public BallScreen(int width, int height) {
-		super(width, height);
+		super( width, height);
 		
 	}
 
