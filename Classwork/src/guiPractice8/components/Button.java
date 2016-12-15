@@ -1,4 +1,4 @@
-package guiTeacher.components;
+package guiPractice8.components;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -46,8 +46,7 @@ public class Button extends TextLabel implements Clickable{
 				cutoff --;
 				t = t.substring(0,cutoff); 
 			}
-			g.drawString(t, (getWidth()-fm.stringWidth(t))/2, 
-					(getHeight()+fm.getHeight()-fm.getDescent())/2);
+			g.drawString(t, (getWidth()-fm.stringWidth(t))/2, (getHeight()+fm.getHeight()-fm.getDescent())/2);
 		}
 	}
 

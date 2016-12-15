@@ -1,11 +1,8 @@
-//*******************************************************************
-// NOTE: please read the 'More Info' tab to the right for shortcuts.
-//*******************************************************************
 
 import java.lang.Math; // headers MUST be above the first class
 
 // one class needs to have a main() method
-public class HelloWorld
+public class TestReview
 {
   
   static boolean[][] grid;
