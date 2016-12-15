@@ -16,14 +16,16 @@ public class HelloWorld
     printGrid();
     buttonClick(3,3);
     printGrid();
+    buttonClick(3,3);
+    printGrid();
   }
   
   public static void buttonClick(int r, int c){
    if(r>=0 && r < grid.length) switchRow(grid[r],c);
     switchColumn(grid,r,c);
-    for(int r = 0; r < grid.length; r++){
-      for(int c = 0 ; c < grid[r].length; c++){
-       if(grid[r][c]) return; 
+    for(int row = 0; row < grid.length; row++){
+      for(int col = 0 ; col < grid[row].length; col++){
+       if(grid[row][col]) return; 
       }
     }
     System.out.println("You won!");
@@ -31,7 +33,7 @@ public class HelloWorld
   
   public static void switchRow(boolean[] row, int x){
     for(int i = -1; i < 2; i++){
-     	if(x+i  >= 0 && x+i < row.length)row[x] = !row[x]; 
+     	if(x+i  >= 0 && x+i < row.length)row[x+i] = !row[x+i]; 
     }
   }
   
