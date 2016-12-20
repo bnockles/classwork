@@ -16,7 +16,8 @@ public class MouseFollower extends GUIApplication {
 	
 	@Override
 	protected void initScreen() {
-		moveScreen = new MovementScreen(getWidth(), getHeight());
+		moveScreen = new MovementScreen(getWidth(), 
+				getHeight());
 		coordScreen = new CoordinateScreen(getWidth(),
 				getHeight());
 		setScreen(coordScreen);

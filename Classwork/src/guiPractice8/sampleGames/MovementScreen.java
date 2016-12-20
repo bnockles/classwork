@@ -24,10 +24,12 @@ public class MovementScreen extends Screen implements MouseMotionListener, Mouse
 	@Override
 	public void initObjects(ArrayList<Visible> viewObjects) {
 		mario = new Graphic(200,200,.25,"resources/sampleImages/mario.png");
-		back = new Button(50,50,100,60,"Back", Color.GRAY, new Action() {
+		back = new Button(50,50,100,60,"Back", 
+				Color.GRAY, new Action() {
 			
 			public void act() {
-				MouseFollower.game.setScreen(MouseFollower.coordScreen);
+				MouseFollower.game.
+				setScreen(MouseFollower.coordScreen);
 			}
 		});
 		viewObjects.add(mario);
