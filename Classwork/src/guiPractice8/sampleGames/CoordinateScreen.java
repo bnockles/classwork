@@ -2,6 +2,7 @@ package guiPractice8.sampleGames;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
@@ -14,11 +15,12 @@ import guiPractice8.components.TextArea;
 import guiPractice8.components.TextLabel;
 import guiPractice8.components.Visible;
 
-public class CoordinateScreen extends Screen implements MouseMotionListener{
+public class CoordinateScreen extends Screen implements MouseMotionListener, MouseListener{
 
 	private TextLabel label;
 	private TextArea paragraph;
 	private Button button;
+	private Graphic picture;
 	
 	public CoordinateScreen(int width, int height) {
 		super(width, height);
@@ -35,15 +37,14 @@ public class CoordinateScreen extends Screen implements MouseMotionListener{
 				new Color(100,100,250),new Action() {
 			
 			public void act() {
-				// TODO Auto-generated method stub
-				
+				MouseFollower.game.setScreen(MouseFollower.moveScreen);
 			}
 		});
-		Graphic picture = new Graphic(50,50,"sampleImages/princess.jpg");
-		viewObjects.add(picture);
+		picture = new Graphic(50,50,.5,"resources/sampleImages/princess.jpg");
 		viewObjects.add(label);
 		viewObjects.add(paragraph);
 		viewObjects.add(button);
+		viewObjects.add(picture);
 	}
 
 	public void mouseDragged(MouseEvent arg0) {
@@ -57,6 +58,36 @@ public class CoordinateScreen extends Screen implements MouseMotionListener{
 	
 	public MouseMotionListener getMouseMotionListener(){
 		return this;
+	}
+	
+	public MouseListener getMouseListener(){
+		return this;
+	}
+
+	public void mouseClicked(MouseEvent m) {
+		if(button.isHovered(m.getX(), m.getY())){
+			button.act();
+		}
+	}
+
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
