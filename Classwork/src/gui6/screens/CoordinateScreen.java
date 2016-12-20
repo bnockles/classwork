@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import gui6.Screen;
 import gui6.components.Button;
+import gui6.components.Graphic;
+import gui6.components.TextArea;
 import gui6.components.Action;
 import gui6.components.TextLabel;
 import gui6.components.Visible;
@@ -21,6 +23,8 @@ public class CoordinateScreen extends Screen
 	//FIELD
 	private Button button;
 	private TextLabel text;
+	private TextArea area; 
+	private Graphic bowser;
 	
 	public CoordinateScreen(int width, int height) {
 		super(width, height);
@@ -40,8 +44,20 @@ public class CoordinateScreen extends Screen
 		});
 		viewObjects.add(button);
 		text = 
-				new TextLabel(20, 200, 500, 40, "Some text");
+				new TextLabel(20, 100, 500, 40, "Some text");
 		viewObjects.add(text);
+		
+		area = 
+				new TextArea(20, 200, 500, 100, "This is "
+						+ "really long text. It prints over"
+						+ " multiple lines, as you can see. "
+						+ "We worked on this in class. It"
+						+ " is called TextArea.");
+		viewObjects.add(area);
+		
+		bowser = new Graphic(30,30,.5, "resources/"
+				+ "sampleImages/bowser.png"); 
+		viewObjects.add(bowser);
 	}
 
 	public void mouseDragged(MouseEvent e) {
