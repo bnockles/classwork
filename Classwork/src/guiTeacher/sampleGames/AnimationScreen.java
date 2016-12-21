@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import guiPractice8.components.AnimatedComponent;
+import guiTeacher.components.AnimatedComponent;
 import guiTeacher.components.TextLabel;
 import guiTeacher.components.Visible;
 import guiTeacher.userInterfaces.Screen;

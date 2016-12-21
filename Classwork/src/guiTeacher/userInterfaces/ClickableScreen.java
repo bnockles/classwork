@@ -1,5 +1,8 @@
 package guiTeacher.userInterfaces;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -37,6 +40,20 @@ public abstract class ClickableScreen extends Screen implements MouseListener {
 				break;
 			}
 		}
+	}
+	
+	public void addObject(Visible v){
+		super.addObject(v);
+		if(v instanceof Clickable){
+			clickables.add((Clickable)v);
+		}
+	}
+	
+
+	
+	public void remove(Visible v){
+		super.remove(v);
+		clickables.remove(v);
 	}
 
 	public void mouseEntered(MouseEvent arg0) {

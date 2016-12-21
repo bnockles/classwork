@@ -1,13 +1,8 @@
-package guiPractice8.components;
+package guiTeacher.components;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-
-import guiTeacher.components.Component;
 
 public class AnimatedComponent extends Component {
 
