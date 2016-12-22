@@ -1,6 +1,8 @@
 package guiTeacher.wackAMole;
 
-public class Mole extends MoleDesign {
+import guiTeacher.components.ClickableGraphic;
+
+public class Mole extends ClickableGraphic implements MoleDesign {
 
 	private double appearanceTime;
 	
@@ -14,18 +16,15 @@ public class Mole extends MoleDesign {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Mole(int x, int y, String imageLocation) {
-		super(x, y, imageLocation);
-		// TODO Auto-generated constructor stub
+	public Mole(int x, int y) {
+		super(x, y, "resources/sampleImages/mole.jpg");
 	}
 
-	@Override
 	public void setAppearanceTime(double d) {
 		this.appearanceTime = d;
 
 	}
 
-	@Override
 	public double getAppearanceTime() {
 		return appearanceTime;
 	}

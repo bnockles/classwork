@@ -79,7 +79,7 @@ public class WhackAMoleScreen extends ClickableScreen implements Runnable{
 			for(int i = 0; i < 2; i++){
 				if(Math.random() < .2*(60.0 - timeLeft )/60){
 					//create a mole
-					final MoleDesign mole = MoleDesign.getAMole(getWidth(),getHeight());
+					final MoleDesign mole = getAMole();
 					mole.setAppearanceTime(500+Math.random()*2000);
 					mole.setAction(new Action() {
 						
@@ -97,6 +97,10 @@ public class WhackAMoleScreen extends ClickableScreen implements Runnable{
 
 		}
 
+	}
+
+	private MoleDesign getAMole() {
+		return new Mole((int)(getWidth()*Math.random()), (int)(getHeight()*Math.random()));
 	}
 
 }
