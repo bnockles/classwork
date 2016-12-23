@@ -28,7 +28,7 @@ public abstract class Screen {
 	}
 
 	public abstract void 
-	     initObjects(ArrayList<Visible> viewObjects);
+	initObjects(ArrayList<Visible> viewObjects);
 
 	private void initImage() {
 		image = new BufferedImage(width, 
@@ -63,7 +63,7 @@ public abstract class Screen {
 
 	}
 
-	
+
 	/**
 	 * Remove a visible from the Screen
 	 * @param v
@@ -105,16 +105,16 @@ public abstract class Screen {
 		 * this removes the object that has the same identity
 		 * as v, not an object that is equal to v
 		 */
-		
+
 	}
-	
+
 	public void moveToFront(Visible v){
 		if(viewObjects.contains(v)){
 			viewObjects.remove(v);
 			viewObjects.add(v);
 		}
 	}
-	
+
 	public void moveToBack(Visible v){
 		if(viewObjects.contains(v)){
 			viewObjects.remove(v);
@@ -124,17 +124,17 @@ public abstract class Screen {
 			//adds object to index n
 		}
 	}
-	
+
 	public void addObject(Visible v){
 		viewObjects.add(v);
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	public BufferedImage getImage(){
 		return image;
 	}
@@ -147,7 +147,13 @@ public abstract class Screen {
 		return null;
 	}
 
+	public int getWidth(){
+		return width;
+	}
 
+	public int getHeight(){
+		return height;
+	}
 
 
 

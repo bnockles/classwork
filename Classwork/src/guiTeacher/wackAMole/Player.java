@@ -11,11 +11,12 @@ public class Player extends Component implements PlayerInterface {
 	
 	public Player(int x, int y) {
 		super(x,y,100,100);
-		int score =0;
+		score =0;
 	}
 
 	public void increaseScore(int i) {
 		score += i;
+		update();
 	}
 
 	@Override
@@ -27,8 +28,5 @@ public class Player extends Component implements PlayerInterface {
 		g.drawString(""+score, 45, 55);
 	}
 	
-	public boolean isAnimated(){
-		return true;
-	}
 
 }
