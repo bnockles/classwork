@@ -28,7 +28,7 @@ public class SimonScreen extends ClickableScreen implements Runnable{
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
-		Color[] colors = {Color.red, Color.blue, Color.orange, Color.green, Color.yellow, new Color(180,90,190)};
+		Color[] colors = {Color.red, Color.blue, new Color(240,160,70), new Color(20,255,140), Color.yellow, new Color(180,90,210)};
 		String[] names = {"RED", "BLUE", "ORANGE", "GREEN", "YELLOW", "PURPLE"};
 		int buttonCount = 6;
 		buttons = new ButtonInterface[buttonCount];
@@ -40,7 +40,7 @@ public class SimonScreen extends ClickableScreen implements Runnable{
 			buttons[i].setY(200 - (int)(100*Math.sin(i*2*Math.PI/(buttonCount))));
 			final ButtonInterface b = buttons[i];
 			System.out.println(b+" has x = "+b.getX()+", y ="+b.getY());
-			b.dim();
+//			b.dim();
 			buttons[i].setAction(new Action() {
 
 				public void act() {
