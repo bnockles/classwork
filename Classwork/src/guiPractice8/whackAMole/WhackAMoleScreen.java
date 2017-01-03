@@ -9,6 +9,7 @@ import guiPractice8.components.TextLabel;
 import guiPractice8.components.Visible;
 
 
+
 public class WhackAMoleScreen extends ClickableScreen implements Runnable{
 
 	private ArrayList<MoleInterface> moles;
@@ -29,13 +30,13 @@ public class WhackAMoleScreen extends ClickableScreen implements Runnable{
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
 		moles = new ArrayList<MoleInterface>();
-		//		player = getAPlayer();
+				player = getAPlayer();
 		label = new TextLabel(getWidth()/2-60, 
 				getHeight()/2-30, 120, 60, "Ready...");
 		timeLabel = new TextLabel(getWidth()/2-60,
 				50, 120, 60, "");
 		viewObjects.add(label);
-		//		viewObjects.add(player);
+				viewObjects.add(player);
 		viewObjects.add(timeLabel);
 	}
 
@@ -47,8 +48,8 @@ public class WhackAMoleScreen extends ClickableScreen implements Runnable{
 
 	private void changeText(String s){
 		try{
-			Thread.sleep(1000);
 			label.setText(s);
+			Thread.sleep(1000);
 		}catch(InterruptedException e){
 			e.printStackTrace();
 		}
@@ -130,7 +131,7 @@ public class WhackAMoleScreen extends ClickableScreen implements Runnable{
 	 * @return
 	 */
 	private PlayerInterface getAPlayer() {
-		return null;
+		return new Player(20,20);
 	}
 
 	/**
@@ -141,7 +142,8 @@ public class WhackAMoleScreen extends ClickableScreen implements Runnable{
 	 * @return
 	 */
 	private MoleInterface getAMole() {
-		return null;
+		return new Mole((int)(getWidth()*Math.random())-100,
+				(int)(getHeight()*Math.random()));
 	}
 
 

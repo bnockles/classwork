@@ -40,7 +40,7 @@ public class SimonScreen extends ClickableScreen implements Runnable{
 			buttons[i].setY(200 - (int)(100*Math.sin(i*2*Math.PI/(buttonCount))));
 			final ButtonInterface b = buttons[i];
 			System.out.println(b+" has x = "+b.getX()+", y ="+b.getY());
-//			b.dim();
+			b.dim();
 			buttons[i].setAction(new Action() {
 
 				public void act() {
