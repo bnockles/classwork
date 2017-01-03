@@ -4,37 +4,24 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class AnimatedComponent extends Component implements Runnable{
+public class AnimatedComponent extends MovingComponent{
 
 	private ArrayList<BufferedImage> frame; //the images that can be displayed
 	private ArrayList<Integer> times; //the time each image is displayed
 	private long displayTime; //the time when the last image switched
 	private int currentFrame; //the frame that is currently being displayed
-	private long moveTime; //time when the image last moved
-	private double vx; //the horizontal velocity
-	private double vy; //the vertical velocity
-	private double posx; //the actual x-coordinate of the object
-	private double posy; //the actual y-coordinate of the object
 	private boolean repeat;
-	private boolean play;
-	
-	public static final int REFRESH_RATE = 30;
-	
+
+	public static final int REFRESH_RATE = 20;
+
 	public AnimatedComponent(int x, int y, int w, int h) {
 		super(x, y, w, h);
-		moveTime = System.currentTimeMillis();
-		displayTime = System.currentTimeMillis();
 		frame = new ArrayList<BufferedImage>();
 		times = new ArrayList<Integer>();
 		currentFrame = 0;
-		vx = 0;
-		vy = 0;
-		posx= x;
-		posy=y;
 		repeat = true;
-		play = false;
 	}
-	
+
 	public void setRepeat(boolean b){
 		repeat = b;
 	}
@@ -42,73 +29,28 @@ public class AnimatedComponent extends Component implements Runnable{
 	public boolean isAnimated(){
 		return true;
 	}
-	public void run(){
-		play = true;
-		while(play){
-			try{
-			    Thread.sleep(REFRESH_RATE);
-				update();
-			}catch(InteruptedException e){
-				e.printStackTrace();
-			}
-		}
-	}
 	
+
+
 	public void addFrame(BufferedImage image, Integer time){
 		frame.add(image);
 		this.times.add(time);
 	}
-	
-	@Override
-	public void update(Graphics2D g) {
+
+
+
+	public void drawImage(Graphics2D g) {
 		long currentTime = System.currentTimeMillis();//gets time now
-		int difference = (int) (currentTime - moveTime);//checks how long it has been since last update
-		//updates only if amount of time is greater than frame rate
-		if(difference > REFRESH_RATE){
-			//update displayTime, since an update is ocurring
-			moveTime = currentTime;
-			//calculate what the new position should be.
-			posx += vx*(double)difference/REFRESH_RATE;
-			posy += vy*(double)difference/REFRESH_RATE;
-			//note: for very low velocities, position might not move by much. Therefore,
-			//rounding to an int may not change
-			setX((int)(posx));
-			setY((int)(posy));
-		
-		}
-		drawFrame(g, currentTime);
-		
-	}
-
-	
-	
-	public double getVx() {
-		return vx;
-	}
-
-	public void setVx(double vx) {
-		this.vx = vx;
-	}
-
-	public double getVy() {
-		return vy;
-	}
-
-	public void setVy(double vy) {
-		this.vy = vy;
-	}
-
-	public void drawFrame(Graphics2D g, long currentTime) {
 		//check if it's time to change the frame
 		//and make sure that there are images in the frame list
 		if(frame != null && frame.size() > 0 && frame.size() == times.size() && currentTime - displayTime > times.get(currentFrame)){
 			displayTime = currentTime;
-			
+
 			//increase the currentFrameIndex but don't exceed size()
 			currentFrame = (currentFrame+1)%frame.size();
 			//end animation if not on repeat
 			if(currentFrame == 0 && !repeat){
-				play = false;
+				setRunning(false);
 				return;
 			}
 			//clear the previous image

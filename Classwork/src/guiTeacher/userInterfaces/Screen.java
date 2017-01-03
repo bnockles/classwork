@@ -57,7 +57,7 @@ public abstract class Screen {
 		g.setColor(Color.black);
 		//iterate through all view objects
 		for(Visible v: viewObjects){
-			if(v.isAnimated())v.update();
+//			if(v.isAnimated())v.update();
 			g.drawImage(v.getImage(), v.getX(), v.getY(), null);
 		}
 //		g.drawString("Look! Text is printed!", 30, 60);
