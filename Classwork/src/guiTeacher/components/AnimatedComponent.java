@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class AnimatedComponent extends Component {
+public class AnimatedComponent extends Component implements Runnable{
 
 	private ArrayList<BufferedImage> frame; //the images that can be displayed
 	private ArrayList<Integer> times; //the time each image is displayed
@@ -15,6 +15,8 @@ public class AnimatedComponent extends Component {
 	private double vy; //the vertical velocity
 	private double posx; //the actual x-coordinate of the object
 	private double posy; //the actual y-coordinate of the object
+	private boolean repeat;
+	private boolean play;
 	
 	public static final int REFRESH_RATE = 30;
 	
@@ -29,12 +31,28 @@ public class AnimatedComponent extends Component {
 		vy = 0;
 		posx= x;
 		posy=y;
+		repeat = true;
+		play = false;
+	}
+	
+	public void setRepeat(boolean b){
+		repeat = b;
 	}
 
 	public boolean isAnimated(){
 		return true;
 	}
-
+	public void run(){
+		play = true;
+		while(play){
+			try{
+			    Thread.sleep(REFRESH_RATE);
+				update();
+			}catch(InteruptedException e){
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	public void addFrame(BufferedImage image, Integer time){
 		frame.add(image);
@@ -85,10 +103,16 @@ public class AnimatedComponent extends Component {
 		//and make sure that there are images in the frame list
 		if(frame != null && frame.size() > 0 && frame.size() == times.size() && currentTime - displayTime > times.get(currentFrame)){
 			displayTime = currentTime;
-			//clear the previous image
-			g = clear();
+			
 			//increase the currentFrameIndex but don't exceed size()
 			currentFrame = (currentFrame+1)%frame.size();
+			//end animation if not on repeat
+			if(currentFrame == 0 && !repeat){
+				play = false;
+				return;
+			}
+			//clear the previous image
+			g = clear();
 			BufferedImage newFrame = frame.get(currentFrame);
 			g.drawImage(newFrame, 0,0,getWidth(),getHeight(),0,0,newFrame.getWidth(),newFrame.getHeight(),null);
 		}
