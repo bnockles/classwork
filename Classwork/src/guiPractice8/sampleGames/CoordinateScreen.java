@@ -11,6 +11,7 @@ import guiPractice8.Screen;
 import guiPractice8.components.Action;
 import guiPractice8.components.Button;
 import guiPractice8.components.Graphic;
+import guiPractice8.components.MovingComponent;
 import guiPractice8.components.TextArea;
 import guiPractice8.components.TextLabel;
 import guiPractice8.components.Visible;
@@ -42,10 +43,19 @@ public class CoordinateScreen extends Screen implements MouseMotionListener, Mou
 			}
 		});
 		picture = new Graphic(50,50,.5,"resources/sampleImages/princess.jpg");
+		
+		
 		viewObjects.add(label);
 		viewObjects.add(paragraph);
 		viewObjects.add(button);
 		viewObjects.add(picture);
+
+		MovingComponent mc = 
+				new MovingComponent(30, 60, 80, 80);
+		mc.setVy(3);
+		mc.play();
+		
+		viewObjects.add(mc);
 	}
 
 	public void mouseDragged(MouseEvent arg0) {
