@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import gui6.Screen;
 import gui6.components.Button;
 import gui6.components.Graphic;
+import gui6.components.MovingComponent;
 import gui6.components.TextArea;
 import gui6.components.Action;
 import gui6.components.TextLabel;
@@ -58,6 +59,11 @@ public class CoordinateScreen extends Screen
 		bowser = new Graphic(30,30,.5, "resources/"
 				+ "sampleImages/bowser.png"); 
 		viewObjects.add(bowser);
+		MovingComponent c = new MovingComponent(20, 20, 100, 100);
+		viewObjects.add(c);
+		c.setVy(2);
+		c.setVx(1);
+		c.play();
 	}
 
 	public void mouseDragged(MouseEvent e) {
