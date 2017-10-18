@@ -51,7 +51,7 @@ public class Student implements Attendee{
 
 	public String restrictStringToLength(String s, int length){
 		if(s.length() > length){
-			s = s.substring(0, 17)+"...";
+			s = s.substring(0, length - 3)+"...";
 		}
 		while(s.length() < length){
 			s += " ";
