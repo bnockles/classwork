@@ -20,6 +20,7 @@ public class twoDArrayPractice6 {
 			//populate with coordinates
 			for(int col = 0; col < arr2D[row].length; col++){
 				arr2D[row][col] = "("+row+", "+col+")";
+				pic[row][col] = "[ ]";
 			}
 
 		}
@@ -238,7 +239,11 @@ public class twoDArrayPractice6 {
 	public static void printPic(String[][] pic){
 		for(int row = 0; row< pic.length; row++){
 			for(int col = 0; col < pic[row].length; col++){
-				System.out.print(pic[row][col]);
+				if(row == i && col == j ){
+					System.out.print("[X]");
+				}else{
+					System.out.print(pic[row][col]);
+				}
 			}
 			System.out.println();
 		}

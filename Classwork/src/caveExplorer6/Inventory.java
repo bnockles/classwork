@@ -2,10 +2,13 @@ package caveExplorer6;
 
 public class Inventory {
 	private boolean hasMap;
+	private int hp;
 	private String map;
+	private boolean key;
 	
 	public Inventory(){
 		hasMap = false;
+		hp = 100;
 		updateMap();
 	}
 	
@@ -54,15 +57,36 @@ public class Inventory {
 
 	public String getDescription() {
 		if(hasMap){
-			return map;
+			return map+"\nHP: "+hp;
 		}
 		else{
-			return "There is nothing in your inventory";
+			return "HP: "+hp+"\nThere is nothing in your inventory";
 		}
 	}
 	
 	public void setMap(boolean b){
 		hasMap = b;
+	}
+
+	public void resetHP() {
+		hp = 100;
+	}
+
+	public void damage(int amount) {
+		hp -= amount;
+	}
+
+	public void addKey() {
+		this.key = true;
+	}
+
+	public boolean hasKey() {
+		return this.key;
+	}
+
+	public void removeKey() {
+		this.key = false;
+		
 	}
 
 }

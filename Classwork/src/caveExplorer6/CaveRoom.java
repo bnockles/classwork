@@ -20,7 +20,7 @@ public class CaveRoom {
 		this.description = description;
 		setDefaultContents(" ");
 		contents = defaultContents;
-		
+
 		borderingRooms = new CaveRoom[4];
 		doors = new Door[4];
 		for(int i = 0 ; i < borderingRooms.length; i++){
@@ -44,39 +44,39 @@ public class CaveRoom {
 				}
 			}
 		}
-	
+
 	}
 
 	public static String toDirection(int dir) {
 		String[] directions = {"the North","the East",
 				"the South", "the West"};
-		
+
 		return directions[dir];
 	}
 
 	public String getContents(){
 		return contents;
 	}
-	
+
 	public void enter(){
 		contents = "X";
 	}
-	
+
 	public void leave(){
 		contents = defaultContents;
 	}
-	
+
 	public void setDefaultContents(String symbol){
 		defaultContents = symbol;
 	}
-	
+
 
 	public void addRoom(int direction, CaveRoom anotherRoom, Door door){
 		borderingRooms[direction] = anotherRoom;
 		doors[direction] = door;
 		setDirections();
 	}
-	
+
 	/**
 	 * Gives this room access to anotherRoom (and vice-versa) and
 	 * sets a door between them, and updates the directions
@@ -98,14 +98,19 @@ public class CaveRoom {
 		return (dir+2)%4;
 	}
 
-	
+
 	public String getDescription(){
-		return description+directions;
+		return description;
 	}
 
-	
 
-	
+	public String getDirections(){
+		return directions;
+	}
+
+
+
+
 	public Door getDoor(int dir){
 		return doors[dir];
 	}
@@ -117,11 +122,10 @@ public class CaveRoom {
 
 	public void interpretInput(String input) {
 		while(!isValid(input)){
-			System.out.println("You can only enter "
-					+ "'w','a','s', or 'd'.");
+			printInvalidMessage();
 			input = CaveExplorer.in.nextLine();
 		}
-		String[] keys = {"w","d","s","a"};
+		String[] keys = validStrings();
 		int indexFound = -1;
 		for(int i = 0; i < keys.length; i++){
 			if(input.equals(keys[i])){
@@ -129,9 +133,48 @@ public class CaveRoom {
 				break;
 			}
 		}
-		goToRoom(indexFound);
+		if(indexFound < 4){
+			goToRoom(indexFound);
+		}else{
+			performAction(indexFound-4);
+		}
+
 	}
-	
+
+	protected void performAction(int actionNumber) {
+		if(actionNumber == 0){
+			unlockDoors();
+		}else{
+			System.out.println("That does nothing.");
+		}
+	}
+
+	private void unlockDoors() {
+		for(int i = 0; i < 4; i++){
+			Door d = CaveExplorer.currentRoom.doors[i];
+			if(d 
+					!= null){
+				if(d.isLocked() && d.canUnlock()){
+					d.setLock(false);
+					d.setOpen(true);
+					System.out.println("You managed to unlock the door to "+toDirection(i)+".");
+				}else if(d.isLocked()){
+					System.out.println("Though you tried, you could not open the door to "+toDirection(i)+".");
+				}
+			}
+		}
+	}
+
+	protected String[] validStrings(){
+		String[] keys = {"w","d","s","a","e"};
+		return keys;
+	}
+
+	protected void printInvalidMessage() {
+		System.out.println("You can only enter "
+				+ "'w','a','s','d' or 'e'.");
+	}
+
 	public void goToRoom(int direction){
 		if(borderingRooms[direction] != null &&
 				doors[direction].isOpen()){
@@ -143,7 +186,7 @@ public class CaveRoom {
 	}
 
 	public boolean isValid(String s){
-		String[] keys = {"w","a","s","d"};
+		String[] keys = validStrings();
 		for(String key:keys){
 			if (s.equals(key))return true;
 		}
@@ -154,31 +197,53 @@ public class CaveRoom {
 		CaveExplorer.caves = new CaveRoom[5][5];
 		for(int i = 0; i < CaveExplorer.caves.length; i++){
 			for(int j = 0; j < CaveExplorer.caves[i].length; j++){
-				CaveExplorer.caves[i][j] = new CaveRoom("This cave has coordinates "+i+", "+j);
+				CaveExplorer.caves[i][j] = new NPCRoom("This cave has coordinates "+i+", "+j);
 			}
 		}
+
+
+
 		CaveExplorer.caves[0][2] = new EventRoom("This is the room"
 				+ " where that guy with a tail met you.",
 				new GameStartEvent());
+
+		CaveExplorer.caves[2][3] = new TreasureRoom("You have found a broken vending machine. "
+				+ "It appears you can have any object in the machine at no cost. Better not tell anyone else! You feel replenished.");
+
+		CaveExplorer.caves[3][3] = new KeyRoom("You have entered a well-furnished room.");
+
 		CaveExplorer.currentRoom = CaveExplorer.caves[0][1];
 		CaveExplorer.currentRoom.enter();
 		CaveExplorer.caves[0][1].setConnection(CaveRoom.EAST,CaveExplorer.caves[0][2],new Door());
 		CaveExplorer.caves[0][2].setConnection(CaveRoom.SOUTH,CaveExplorer.caves[1][2],new Door());
+		CaveExplorer.caves[0][2].setConnection(CaveRoom.EAST,CaveExplorer.caves[0][3],new Door());
+		CaveExplorer.caves[0][3].setConnection(CaveRoom.SOUTH,CaveExplorer.caves[1][3],new Door());
+		Door lockedDoor = new Door();
+		lockedDoor.setLock(true);
+		lockedDoor.setOpen(false);
+		CaveExplorer.caves[1][3].setConnection(CaveRoom.SOUTH,CaveExplorer.caves[2][3],lockedDoor);
 		CaveExplorer.caves[1][2].setConnection(CaveRoom.SOUTH,CaveExplorer.caves[2][2],new Door());
+
+		CaveExplorer.caves[2][2].setConnection(CaveRoom.SOUTH,CaveExplorer.caves[3][2],new Door());
+
+		CaveExplorer.caves[3][2].setConnection(CaveRoom.EAST,CaveExplorer.caves[3][3],new Door());
+
+		CaveExplorer.monsters = new NPC[1];
+		NPC mac = new NPC(CaveExplorer.caves);
+		mac.setPosition(3, 3);
+		CaveExplorer.monsters[0] = mac;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
- 

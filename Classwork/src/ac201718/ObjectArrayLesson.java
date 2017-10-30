@@ -8,7 +8,9 @@ public class ObjectArrayLesson {
 		Person[] people = new Person[12];
 		populate(people);
 		for(Person p: people){
-			System.out.println(p);
+//			System.out.println(p);
+			p.mingle(people);
+			p.nameFriends();
 		}
 	}
 
@@ -32,6 +34,15 @@ public class ObjectArrayLesson {
 
 	private String get(String[] arr) {
 		return arr[(int)(Math.random()*arr.length)];
+	}
+
+	public static boolean personInGroup(Person[] group, Person p) {
+		for(Person f: group){
+			if(f == p){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

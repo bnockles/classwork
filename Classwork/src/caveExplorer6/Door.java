@@ -38,4 +38,8 @@ public class Door {
 		this.details = details;
 	}
 	
+	public boolean canUnlock() {
+		return CaveExplorer.inventory.hasKey();
+	}
+	
 }
