@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class CaveExplorer {
 
 	public static CaveRoom[][] caves;
-	public static Scanner in;
+	public static Scanner in = new Scanner(System.in);
 	public static CaveRoom currentRoom;
 	public static Inventory inventory;
 	public static NPC[] monsters;
@@ -14,7 +14,6 @@ public class CaveExplorer {
 
 
 	public static void main(String[] args){
-		in = new Scanner(System.in);
 		CaveRoom.setUpCaves();
 
 		inventory = new Inventory();
